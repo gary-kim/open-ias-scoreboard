@@ -1,6 +1,6 @@
 const electron = require('electron');
 
-const { app, BrowserWindow } = electron;
+const { app, BrowserWindow, dialog } = electron;
 const ipc = electron.ipcMain;
 
 let scoreboardWindows = [""];
@@ -18,17 +18,10 @@ function createScoreboard() {
     
     current.on('close', (e) => {
         e.preventDefault();
-        if(closeConfirm !== null)   {
-            closeConfirm.show();
-            return;
+        if(dialog.showMessageBox({type: 'info', buttons: ['Quit', 'Cancel'], title: 'Quit Scoreboard', message: `Close Scoreboard #${number}: ${current.webContents.getTitle()}`, detail: `Are you sure you would like to quit Scoreboard #${number}: ${current.webContents.getTitle()}?`, browserWindow: current}) === 0)  {
+            current.destroy();
         }
-        closeConfirm = new BrowserWindow({parent: current, modal: true, show: false, height: 200, width: 400, frame: false, alwaysOnTop: true, resizable: false});
-        closeConfirm.loadFile('ui/surequit.html');
-        closeConfirm.on('ready-to-show', () => {
-            closeConfirm.webContents.send('set-message', `Are you sure you would like to quit Scoreboard #${number}: ${current.webContents.getTitle()}?`);
-            closeConfirm.webContents.send('set-quitting', number);
-            closeConfirm.show();
-        });
+        
     });
     
 }
@@ -41,17 +34,13 @@ function createControl() {
     
     controlWindow.on('close', (e) => {
         e.preventDefault();
-        if(closeConfirm !== null)   {
-            closeConfirm.show();
-            return;
+        if(dialog.showMessageBox({type: 'info', buttons: ['Quit', 'Cancel'], title: 'Quit Scoreboard', message: "Close all scoreboards from Scoreboard", detail: `Are you sure you would like to quit Scoreboard? (WARNING: This will close all open scoreboards.)`, browserWindow: controlWindow}) === 0)  {
+            scoreboardWindows.forEach((each) => {
+                each.destroy();
+            });
+            controlWindow.destroy();
+            app.quit();
         }
-        closeConfirm = new BrowserWindow({parent: controlWindow, modal: true, show: false, height: 200, width: 400, frame: false, alwaysOnTop: true, resizable: false});
-        closeConfirm.loadFile('ui/surequit.html');
-        closeConfirm.on('ready-to-show', () => {
-            closeConfirm.webContents.send('set-message', "Are you sure you would like to quit Scoreboard? (WARNING: This will close all open scoreboards.)");
-            closeConfirm.webContents.send('set-quitting', 0);
-            closeConfirm.show();
-        });
     })
 }
 

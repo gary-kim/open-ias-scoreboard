@@ -16,6 +16,8 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+// Not Currently Used
+
 const electron = require('electron');
 const ipc = electron.ipcRenderer;
 const Mousetrap = require('mousetrap');
