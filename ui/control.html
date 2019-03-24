@@ -19,7 +19,12 @@
                             <h4><div id="clock-state">Stopped</div></h4>
                             <h4><div id="clock-current">00:00</div></h4>
                             <button id="clock-toggle">Toggle Clock</button>
-                            <button id="clock-reset">Reset</button>
+                            <br>
+                            <form id="clock-set">
+                                <input type="number" name="Minutes" id="clock-set-minutes" placeholder="10" min="0" max="99" value="0"> :
+                                <input type="number" name="Seconds" id="clock-set-seconds" placeholder="35" min="0" max="59" value="0">
+                                <input type="submit" name="Set" value="submit" id="clock-set-submit">
+                            </form>
                         </div>
                     </div>
                 </template>
