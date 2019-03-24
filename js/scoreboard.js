@@ -58,23 +58,21 @@ function main() {
 }
 
 function changeclock(seconds)  {
-    let secondDisplay = (seconds % 60).toFixed(0);
-    let minuteDisplay = (seconds / 60).toFixed(0);
+    let secondDisplay = Math.floor(seconds % 60);
+    let minuteDisplay = Math.floor((seconds / 60));
 
-
-    changedigit(clock.digits[0], secondDisplay.charAt(1));
-    changedigit(clock.digits[1], secondDisplay.charAt(0));
-    changedigit(clock.digits[2], minuteDisplay.charAt(1));
-    changedigit(clock.digits[3], minuteDisplay.charAt(0));
+    changedigit(clock.digits[3], Math.floor(secondDisplay % 10));
+    changedigit(clock.digits[2], Math.floor(secondDisplay / 10));
+    changedigit(clock.digits[1], Math.floor(minuteDisplay % 10));
+    changedigit(clock.digits[0], Math.floor(minuteDisplay / 10));
 
     function changedigit(digit,val)   {
         digit.src = digitLocation(val);
     }
 }
 
-ipc.on('clock-update', (e, val) => {
+ipc.on('update-clock', (e, val) => {
     changeclock(val);
-    document.querySelector('h1').innerText = val;
 });
 ipc.on('title-set', (e, input) => {
     document.title = input;

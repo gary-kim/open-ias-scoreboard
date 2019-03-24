@@ -5,14 +5,34 @@ html {
     height: 100%;
     width: 100%;
 }
-.scoreboard {
+.controls   {
     display: grid;
     grid-gap: 1em;
     text-align: center;
     height: 100%;
     width: 100%;
 }
-#home-score {
+.tabs {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+.tabs button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+}
+.tabs button:hover {
+    background-color: #ddd;
+}
+.tabs button.active {
+    background-color: #ccc;
+}
+#home-controls  {
     grid-row: 1 / 3;
     grid-column: 1 / 2;
     border-radius: 10px 10px 10px 10px;
@@ -20,7 +40,7 @@ html {
     color: white;
     background: black;
 }
-#guest-score    {
+#clock-controls {
     grid-row: 1 / 3;
     grid-column: 5 / 6;
     border-radius: 10px 10px 10px 10px;
@@ -28,9 +48,9 @@ html {
     color: white;
     background: black;
 }
-#main-clock {
-    grid-row: 1 / 2;
-    grid-column: 2 / 5;
+#guest-controls {
+    grid-row: 1 / 3;
+    grid-column: 5 / 6;
     border-radius: 10px 10px 10px 10px;
     border: 5px solid white;
     color: white;

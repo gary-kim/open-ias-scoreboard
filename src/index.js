@@ -21,7 +21,7 @@ function createScoreboard() {
         if(dialog.showMessageBox({type: 'info', buttons: ['Quit', 'Cancel'], title: 'Quit Scoreboard', message: `Close Scoreboard #${number}: ${current.webContents.getTitle()}`, detail: `Are you sure you would like to quit Scoreboard #${number}: ${current.webContents.getTitle()}?`, browserWindow: current}) === 0)  {
             current.destroy();
         }
-        
+        controlWindow.webContents.send('destory-scoreboard', number);
     });
     
 }
@@ -51,6 +51,7 @@ app.on('ready', () => {
 });
 
 ipc.on('relay', (e, msg) => {
+    console.log(`Relaying ${msg.content} to ${msg.relayTo} on ${msg.channel}`);
     scoreboardWindows[msg.relayTo].webContents.send(msg.channel,msg.content);
 });
 

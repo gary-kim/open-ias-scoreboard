@@ -5,8 +5,26 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <title>Scoreboard Control</title>
+        <link rel="stylesheet" href="../css/control.css">
     </head>
     <body>
+        <div class="main">
+            <div class="tabs">
+                
+            </div>
+            <div class="content">
+                <template id="newcontrols">
+                    <div class="controls" scoreboard-id="1">
+                        <div id="clock-controls">
+                            <h4><div id="clock-state">Stopped</div></h4>
+                            <h4><div id="clock-current">00:00</div></h4>
+                            <button id="clock-toggle">Toggle Clock</button>
+                            <button id="clock-reset">Reset</button>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </div>
         <script src="../js/control.js"></script>
     </body>
 </html>
