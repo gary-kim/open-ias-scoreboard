@@ -18,19 +18,24 @@
 
 const electron = require('electron');
 const ipc = electron.ipcRenderer;
+const Mousetrap = require('mousetrap');
 
 window.onload = main;
 
 let quitting = 0;
 
 function main() {
-    document.querySelector('#quit').addEventListener('click', () => {
-        ipc.send('quit', quitting);
-        ipc.send('quit', -2);
-    });
-    document.querySelector('#cancel').addEventListener('click', () => {
-        ipc.send('quit', -2);
-    });
+    document.querySelector('#quit').addEventListener('click', sendQuit);
+    Mousetrap.bind(['q','y'], sendQuit);
+    document.querySelector('#cancel').addEventListener('click', sendCancel);
+    Mousetrap.bind(['c','n'], sendCancel);
+    function sendQuit() {
+        ipc.send('shutdown', quitting);
+        ipc.send('shutdown', -2);
+    }
+    function sendCancel()   {
+        ipc.send('shutdown', -2);
+    }
 }
 
 ipc.on('set-message', (e,msg) => {

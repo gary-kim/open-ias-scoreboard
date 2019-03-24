@@ -22,7 +22,7 @@ function createScoreboard() {
             closeConfirm.show();
             return;
         }
-        closeConfirm = new BrowserWindow({parent: current, modal: true, show: false, width: 400, height: 200});
+        closeConfirm = new BrowserWindow({parent: current, modal: true, show: false, height: 200, width: 400, frame: false, alwaysOnTop: true, resizable: false});
         closeConfirm.loadFile('ui/surequit.html');
         closeConfirm.on('ready-to-show', () => {
             closeConfirm.webContents.send('set-message', `Are you sure you would like to quit Scoreboard #${number}: ${current.webContents.getTitle()}?`);
@@ -45,7 +45,7 @@ function createControl() {
             closeConfirm.show();
             return;
         }
-        closeConfirm = new BrowserWindow({parent: controlWindow, modal: true, show: false, width: 400, height: 200});
+        closeConfirm = new BrowserWindow({parent: controlWindow, modal: true, show: false, height: 200, width: 400, frame: false, alwaysOnTop: true, resizable: false});
         closeConfirm.loadFile('ui/surequit.html');
         closeConfirm.on('ready-to-show', () => {
             closeConfirm.webContents.send('set-message', "Are you sure you would like to quit Scoreboard? (WARNING: This will close all open scoreboards.)");
@@ -65,19 +65,25 @@ ipc.on('relay', (e, msg) => {
     scoreboardWindows[msg.relayTo].webContents.send(msg.channel,msg.content);
 });
 
-ipc.on('quit', (e, msg) => {
-    if(msg === -2)  {
-        closeConfirm.destroy();
+ipc.on('shutdown', (e, msg) => {
+    switch(msg) {
+        case -2:
+        //closeConfirm.close();
+        closeConfirm.minimize();
         closeConfirm = null;
-    } else if(msg === -1) {
+        break;
+        case -1:
         e.sender.destroy();
-    } else if(msg === 0)   {
+        break;
+        case 0:
         scoreboardWindows.forEach((each) => {
             each.destroy();
         });
         controlWindow.destroy();
         app.quit();
-    } else {
+        break;
+        default:
         scoreboardWindows[msg].destroy();
+        break;
     }
 });

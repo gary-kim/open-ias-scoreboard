@@ -1,8 +1,8 @@
 {
   "name": "iasas-scoreboard",
   "version": "0.0.1",
-  "description": "IASAS Scoreboard is an Electron application to use for putting scoreboards on IASAS event livestreams.",
-  "main": "index.js",
+  "description": "Scoreboard is an Electron application to use for putting scoreboards on IASAS event livestreams.",
+  "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron-forge start",
@@ -21,7 +21,8 @@
   "homepage": "https://github.com/gary-kim/iasas-scoreboard#readme",
   "dependencies": {
     "electron-compile": "^6.4.4",
-    "electron-squirrel-startup": "^1.0.0"
+    "electron-squirrel-startup": "^1.0.0",
+    "mousetrap": "^1.6.3"
   },
   "devDependencies": {
     "babel-plugin-transform-async-to-generator": "^6.24.1",
@@ -46,16 +47,21 @@
         ]
       },
       "electronPackagerConfig": {
-        "packageManager": "yarn"
+        "packageManager": "npm"
       },
       "electronWinstallerConfig": {
-        "name": "iasas_scoreboard"
+        "name": "Scoreboard"
       },
-      "electronInstallerDebian": {},
+      "electronInstallerDebian": {
+        "name": "scoreboard",
+        "maintainer": "Gary Kim",
+        "productName": "Scoreboard",
+        "productDescription": "Scoreboard is an Electron application to use for putting scoreboards on IASAS event livestreams."
+      },
       "electronInstallerRedhat": {},
       "github_repository": {
-        "owner": "",
-        "name": ""
+        "owner": "Gary Kim",
+        "name": "iasas-scoreboard"
       },
       "windowsStoreConfig": {
         "packageName": "",
