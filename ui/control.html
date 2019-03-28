@@ -1,35 +1,51 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-        <title>Scoreboard Control</title>
-        <link rel="stylesheet" href="../css/control.css">
-    </head>
-    <body>
-        <div class="main">
-            <div class="tabs">
-                
-            </div>
-            <div class="content">
-                <template id="newcontrols">
-                    <div class="controls" scoreboard-id="1">
-                        <div id="clock-controls">
-                            <h4><div id="clock-state">Stopped</div></h4>
-                            <h4><div id="clock-current">00:00</div></h4>
-                            <button id="clock-toggle">Toggle Clock</button>
-                            <br>
-                            <form id="clock-set">
-                                <input type="number" name="Minutes" id="clock-set-minutes" placeholder="10" min="0" max="99" value="0"> :
-                                <input type="number" name="Seconds" id="clock-set-seconds" placeholder="35" min="0" max="59" value="0">
-                                <input type="submit" name="Set" value="submit" id="clock-set-submit">
-                            </form>
-                        </div>
-                    </div>
-                </template>
-            </div>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Scoreboard Control</title>
+    <link rel="stylesheet" href="../css/control.css">
+</head>
+<body>
+    <div class="main">
+        <div class="tabs">
+            
         </div>
-        <script src="../js/control.js"></script>
-    </body>
+        <div class="content">
+            <template id="newcontrols">
+                <div class="controls" scoreboard-id="1">
+                    <div id="home-controls">
+                        <h2>Home</h2>
+                        <h3><div class="team-score">00</div></h3>
+                        <br>
+                        <button class="increase-score">Increase (up)</button>
+                        <button class="decrease-score">Decrease (down)</button>
+                    </div>
+                    <div id="clock-controls">
+                        <h3><div id="clock-state">Stopped</div></h3>
+                        <h3><div id="clock-current">00:00</div></h3>
+                        <button id="clock-toggle">Toggle Clock</button>
+                        <br>
+                        <form id="clock-set">
+                            <input type="number" name="Minutes" id="clock-set-minutes" placeholder="10" min="0" max="99" value="0"> :
+                            <input type="number" name="Seconds" id="clock-set-seconds" placeholder="35" min="0" max="59" value="0">
+                            <input type="submit" name="Set" value="submit" id="clock-set-submit">
+                        </form>
+                        <button id="increase-clock">Increase</button>
+                        <button id="decrease-clock">Decrease</button>
+                    </div>
+                    <div id="guest-controls">
+                        <h2>Guest</h2>
+                        <h3><div class="team-score">00</div></h3>
+                        <br>
+                        <button class="increase-score">Increase (up)</button>
+                        <button class="decrease-score">Decrease (down)</button>
+                    </div>
+                </div>
+            </template>
+        </div>
+    </div>
+    <script src="../js/control.js"></script>
+</body>
 </html>

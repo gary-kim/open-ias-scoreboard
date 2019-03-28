@@ -27,6 +27,12 @@ let data = [{
         current: 0,
         display: document.createElement('div'),
         displaystate: document.createElement('div')
+    },
+    home: {
+        current: 0
+    },
+    guest: {
+        current: 0
     }
 }]
 
@@ -42,6 +48,10 @@ function main() {
 
 // Create new scoreboard
 // Returns object with {tab: Node, controls: Node}
+/**
+ * 
+ * @param {*} name 
+ */
 function newscoreboardtab(name)  {
     let tr = {};
     let tmp;
@@ -71,10 +81,52 @@ function newscoreboardtab(name)  {
         e.preventDefault();
         let minutes = parseFloat(tr.controls.querySelector('#clock-set-minutes').value);
         let seconds = parseFloat(tr.controls.querySelector('#clock-set-seconds').value);
-        data[name].clock.current = ((minutes * 60) + seconds) * 1000;
+        clockset(((minutes * 60) + seconds) * 1000);
+    });
+    // Also allow easy incrementing of clock
+    tr.controls.querySelector('#increase-clock').addEventListener('click', () => {
+        clockset(Math.max(data[name].clock.current + 1000, 0));
+    });
+    
+    tr.controls.querySelector('#decrease-clock').addEventListener('click', () => {
+        clockset(Math.max(data[name].clock.current - 1000, 0));
+    });
+    /**
+     * 
+     * @param {integer} miliseconds 
+     */
+    function clockset(miliseconds) {
+        data[name].clock.current = miliseconds;
         data[name].clock.display.innerText = `${Math.floor(data[name].clock.current / 1000 / 60).toString().padStart(2,'0')}:${Math.floor(data[name].clock.current / 1000 % 60).toString().padStart(2,'0')}`;
         ipc.send('relay', {relayTo: name.toString(), channel: 'update-clock', content: (data[name].clock.current / 1000)});
-    });
+    }
+
+
+    // team score controls
+    teamscorecontrols(data[name].home, tr.controls.querySelector('#home-controls'), true);
+    teamscorecontrols(data[name].guest, tr.controls.querySelector('#guest-controls'), false);
+    /**
+     * 
+     * @param {Object} setOn data object for specific team
+     * @param {Node} attachTo Node with div of team controls
+     * @param {boolean} home setting for home?
+     * 
+     */
+    function teamscorecontrols(setOn, attachTo, home) {
+        let display = attachTo.querySelector('.team-score');
+        attachTo.querySelector('.increase-score').addEventListener('click', increase);
+        attachTo.querySelector('.decrease-score').addEventListener('click', decrease);
+        function increase() {
+            setOn.current = Math.max(setOn.current + 1, 0);
+            display.innerText = setOn.current.toString().padStart(2, '0');
+            ipc.send('relay', {relayTo: name, channel: 'set-score', content: {score: setOn.current, home: home}});
+        }
+        function decrease() {
+            setOn.current = Math.max(setOn.current - 1, 0);
+            display.innerText = setOn.current.toString().padStart(2, '0');
+            ipc.send('relay', {relayTo: name, channel: 'set-score', content: {score: setOn.current, home: home}});
+        }
+    }
 
     // team image controls
 

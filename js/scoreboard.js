@@ -66,13 +66,29 @@ function changeclock(seconds)  {
     changedigit(clock.digits[1], Math.floor(minuteDisplay % 10));
     changedigit(clock.digits[0], Math.floor(minuteDisplay / 10));
 
-    function changedigit(digit,val)   {
-        digit.src = digitLocation(val);
-    }
+    
+}
+/**
+ * 
+ * @param {integer} score Score to set
+ * @param {boolean} home Setting home team's score?
+ */
+function changescore(score, home)   {
+    let display = home? scoreDisplays.home : scoreDisplays.guest;
+
+    changedigit(display.digits[0], Math.floor(score / 10));
+    changedigit(display.digits[1], Math.floor(score % 10));
+}
+
+function changedigit(digit,val)   {
+    digit.src = digitLocation(val);
 }
 
 ipc.on('update-clock', (e, val) => {
     changeclock(val);
+});
+ipc.on('set-score', (e, msg) => {
+    changescore(msg.score, msg.home);
 });
 ipc.on('title-set', (e, input) => {
     document.title = input;
