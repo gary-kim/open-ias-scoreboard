@@ -8,6 +8,10 @@ let controlWindow;
 
 let closeConfirm = null;
 
+/**
+ * Create new scoreboard and add it to scoreboardWindows array.
+ * @todo Handle multiple scoreboards properly
+ */
 function createScoreboard() {
     
     let current = new BrowserWindow();
@@ -26,6 +30,9 @@ function createScoreboard() {
     
 }
 
+/**
+ * Creates a control board window (Only one per instance of the program. Having more then one will lead to unexpected behavior)
+ */
 function createControl() {
     
     controlWindow = new BrowserWindow();

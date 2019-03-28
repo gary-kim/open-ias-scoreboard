@@ -21,9 +21,14 @@ const ipc = electron.ipcRenderer;
 
 window.onload = main;
 
-const digitLocation = (val) => {
+/**
+ * Converts a digit or symbol to a file path to an image representing that digit or symbol
+ * @param {string|number} val digit or symbol to get file path for.
+ * @returns {string} file path to image with requested digit or symbol
+ */
+function digitLocation(val) {
     return `../res/clock/digits/${val}.gif`;
-};
+}
 
 let clock = {
     digits: []
@@ -50,13 +55,16 @@ function main() {
 
 
     function add2array(data, arr)   {
-        console.log('adding' + data);
         data.forEach((tmp) => {
             arr.push(tmp);
         });
     }
 }
 
+/**
+ * Changes the clock display
+ * @param {number} seconds Time to be shown on clock in seconds.
+ */
 function changeclock(seconds)  {
     let secondDisplay = Math.floor(seconds % 60);
     let minuteDisplay = Math.floor((seconds / 60));
@@ -64,13 +72,11 @@ function changeclock(seconds)  {
     changedigit(clock.digits[3], Math.floor(secondDisplay % 10));
     changedigit(clock.digits[2], Math.floor(secondDisplay / 10));
     changedigit(clock.digits[1], Math.floor(minuteDisplay % 10));
-    changedigit(clock.digits[0], Math.floor(minuteDisplay / 10));
-
-    
+    changedigit(clock.digits[0], Math.floor(minuteDisplay / 10));    
 }
 /**
- * 
- * @param {integer} score Score to set
+ * Changes score that is shown on the scoreboard.
+ * @param {number} score Score to set
  * @param {boolean} home Setting home team's score?
  */
 function changescore(score, home)   {
@@ -80,6 +86,11 @@ function changescore(score, home)   {
     changedigit(display.digits[1], Math.floor(score % 10));
 }
 
+/**
+ * Changes the image of the given Node to the one representing the number passed as val.
+ * @param {Node} digit Node of image to change
+ * @param {number} val Number to change digit to
+ */
 function changedigit(digit,val)   {
     digit.src = digitLocation(val);
 }

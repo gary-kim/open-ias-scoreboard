@@ -40,17 +40,16 @@ window.onload = main;
 
 function main() {
     data.push(data[0]);
-    let newscoreboard = newscoreboardtab('1');
+    let newscoreboard = newscoreboardtab(1);
     document.querySelector('.tabs').appendChild(newscoreboard.tab);
     document.querySelector('.content').appendChild(newscoreboard.controls);
     setInterval(cron,500);
 }
 
-// Create new scoreboard
-// Returns object with {tab: Node, controls: Node}
 /**
- * 
- * @param {*} name 
+ * Create new scorebaord
+ * @param {number} name The position in the data array of this new scoreboard
+ * @returns {Object} an object with {tab: Node, controls: Node}
  */
 function newscoreboardtab(name)  {
     let tr = {};
@@ -92,8 +91,8 @@ function newscoreboardtab(name)  {
         clockset(Math.max(data[name].clock.current - 1000, 0));
     });
     /**
-     * 
-     * @param {integer} miliseconds 
+     * Sets the clock time then updates the clock on the control board and scoreboard.
+     * @param {number} miliseconds Time to set clock to in miliseconds
      */
     function clockset(miliseconds) {
         data[name].clock.current = miliseconds;
@@ -133,10 +132,18 @@ function newscoreboardtab(name)  {
     return tr;
 }
 
+/**
+ * 
+ * @param {Event} e Change scoreboard tab to another scoreborad
+ * @todo Make this actually do something
+ */
 function changescoreboardtab(e)  {
     let ct = e.currentTarget.getAttribute('scoreboard-id');
 }
 
+/**
+ * Function to run tasks that require constant repeating.
+ */
 function cron() {
     for(let i = 1; i < data.length; i++)  {
         if(!data[i]) continue;
