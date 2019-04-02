@@ -1,6 +1,6 @@
 /*
     IASAS Scoreboard is an Electron based scoreboard application for IASAS event livestreams.
-    Copyright (C) 2019 Gary Kim <gary@garykim.devin>
+    Copyright (C) 2019 Gary Kim <gary@garykim.dev>
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License as published
