@@ -1,3 +1,22 @@
+/*
+    IASAS Scoreboard is an Electron based scoreboard application for IASAS event livestreams.
+    Copyright (C) 2019 Gary Kim <gary@garykim.dev>
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as published
+    by the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+*/
+
 const electron = require('electron');
 
 const { app, BrowserWindow, dialog } = electron;
@@ -19,6 +38,10 @@ function createScoreboard() {
     scoreboardWindows.push(current);
     
     current.loadFile('ui/scoreboard.html');
+
+    current.on('responsive', (e) => {
+        current.webContents.send('title-set', `Scoreboard #${number}`);
+    });
     
     current.on('close', (e) => {
         e.preventDefault();
@@ -55,6 +78,15 @@ app.on('ready', () => {
     scoreboardWindows[0] = (new BrowserWindow({show: false}));
     createControl();
     createScoreboard();
+});
+
+// Handle messages from windows
+
+ipc.on('set-logo', (e, msg) => {
+    let filepaths = dialog.showOpenDialog(e.sender, {title: `Select Team Logo for ${msg.home? 'home':'guest'}`, buttonLabel: 'Select', properties: 'openFile'});
+    if(!filepaths) return;
+    scoreboardWindows[msg.scoreboard].webContents.send('set-logo', {home: msg.home, image_path: filepaths[0]});
+    e.sender.webContents.send('set-logo', {home: msg.home, image_path: filepaths[0], scoreboard: msg.scoreboard});
 });
 
 ipc.on('relay', (e, msg) => {

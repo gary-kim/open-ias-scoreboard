@@ -1,6 +1,6 @@
 /*
     IASAS Scoreboard is an Electron based scoreboard application for IASAS event livestreams.
-    Copyright (C) 2019 Gary Kim <gary@ydgkim.com>
+    Copyright (C) 2019 Gary Kim <gary@garykim.dev>
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License as published
@@ -19,6 +19,8 @@
 const electron = require('electron');
 const ipc = electron.ipcRenderer;
 
+const gir = require('get-in-range');
+
 let data = [{
     clock: {
         state: false,
@@ -29,10 +31,12 @@ let data = [{
         displaystate: document.createElement('div')
     },
     home: {
-        current: 0
+        current: 0,
+        logo: document.createElement('img')
     },
     guest: {
-        current: 0
+        current: 0,
+        logo: document.createElement('img')
     }
 }]
 
@@ -78,8 +82,8 @@ function newscoreboardtab(name)  {
     // Set the clock
     tr.controls.querySelector('#clock-set-submit').addEventListener('click', (e) => {
         e.preventDefault();
-        let minutes = parseFloat(tr.controls.querySelector('#clock-set-minutes').value);
-        let seconds = parseFloat(tr.controls.querySelector('#clock-set-seconds').value);
+        let minutes = gir(tr.controls.querySelector('#clock-set-minutes').value, 0, 99);
+        let seconds = gir(tr.controls.querySelector('#clock-set-seconds').value, 0, 59);
         clockset(((minutes * 60) + seconds) * 1000);
     });
     // Also allow easy incrementing of clock
@@ -90,6 +94,18 @@ function newscoreboardtab(name)  {
     tr.controls.querySelector('#decrease-clock').addEventListener('click', () => {
         clockset(Math.max(data[name].clock.current - 1000, 0));
     });
+
+    data[name].home.logo = tr.controls.querySelector('.logo-select.home img');
+    data[name].guest.logo = tr.controls.querySelector('.logo-select.guest img');
+
+    tr.controls.querySelector('.logo-select.home button').addEventListener('click', () => {
+        setteamlogo(true, name);
+    });
+
+    tr.controls.querySelector('.logo-select.guest button').addEventListener('click', () => {
+        setteamlogo(false, name);
+    });
+
     /**
      * Sets the clock time then updates the clock on the control board and scoreboard.
      * @param {number} miliseconds Time to set clock to in miliseconds
@@ -116,12 +132,12 @@ function newscoreboardtab(name)  {
         attachTo.querySelector('.increase-score').addEventListener('click', increase);
         attachTo.querySelector('.decrease-score').addEventListener('click', decrease);
         function increase() {
-            setOn.current = Math.max(setOn.current + 1, 0);
+            setOn.current = gir(setOn.current + 1, 0, 99);
             display.innerText = setOn.current.toString().padStart(2, '0');
             ipc.send('relay', {relayTo: name, channel: 'set-score', content: {score: setOn.current, home: home}});
         }
         function decrease() {
-            setOn.current = Math.max(setOn.current - 1, 0);
+            setOn.current = gir(setOn.current - 1, 0, 99);
             display.innerText = setOn.current.toString().padStart(2, '0');
             ipc.send('relay', {relayTo: name, channel: 'set-score', content: {score: setOn.current, home: home}});
         }
@@ -139,6 +155,18 @@ function newscoreboardtab(name)  {
  */
 function changescoreboardtab(e)  {
     let ct = e.currentTarget.getAttribute('scoreboard-id');
+}
+
+/**
+ * 
+ * Brings up dialog where team logo can be chosen
+ * 
+ * @param {boolean} home Set for home?
+ * @param {number} sbid Scoreboard id for team logo to be set for.
+ * 
+ */
+function setteamlogo(home, sbid)   {
+    ipc.send('set-logo', {scoreboard: sbid, home: home});
 }
 
 /**
@@ -163,3 +191,6 @@ function cron() {
 ipc.on('destory-scoreboard', (e, msg) => {
     data[msg] = null;
 })
+ipc.on('set-logo', (e, msg) => {
+    data[msg.scoreboard][msg.home?'home':'guest'].logo.src = msg.image_path;
+});

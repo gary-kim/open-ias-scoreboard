@@ -1,6 +1,6 @@
 /*
     IASAS Scoreboard is an Electron based scoreboard application for IASAS event livestreams.
-    Copyright (C) 2019 Gary Kim <gary@ydgkim.com>
+    Copyright (C) 2019 Gary Kim <gary@garykim.dev>
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License as published
@@ -43,9 +43,15 @@ let scoreDisplays = {
     }
 }
 
+let logos = {
+    home: document.createElement('img'),
+    guest: document.createElement('img')
+}
+
 function main() {
     // Setup
     console.log('started');
+    // Set up clock and scoring
     clock.dom = document.querySelector('#main-clock');
     scoreDisplays.home.dom = document.querySelector('#home-score');
     scoreDisplays.guest.dom = document.querySelector('#guest-score');
@@ -59,6 +65,10 @@ function main() {
             arr.push(tmp);
         });
     }
+
+    // Set up team logos
+    logos.home = document.querySelector('#home-logo img');
+    logos.guest = document.querySelector('#guest-logo img');
 }
 
 /**
@@ -95,6 +105,7 @@ function changedigit(digit,val)   {
     digit.src = digitLocation(val);
 }
 
+// All recieveable commands
 ipc.on('update-clock', (e, val) => {
     changeclock(val);
 });
@@ -104,6 +115,6 @@ ipc.on('set-score', (e, msg) => {
 ipc.on('title-set', (e, input) => {
     document.title = input;
 });
-ipc.on('set-image', (e, msg) => {
-    
+ipc.on('set-logo', (e, msg) => {
+    logos[msg.home? 'home':'guest'].src = msg.image_path;
 });

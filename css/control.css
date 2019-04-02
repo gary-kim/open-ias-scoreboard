@@ -1,3 +1,21 @@
+/*
+    IASAS Scoreboard is an Electron based scoreboard application for IASAS event livestreams.
+    Copyright (C) 2019 Gary Kim <gary@garykim.dev>
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as published
+    by the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+*/
+
 html {
     background: rgb(0, 59, 0);
 }
@@ -6,6 +24,7 @@ html {
     width: 100%;
 }
 .controls   {
+    margin-top: 10px;
     display: grid;
     grid-gap: 1em;
     text-align: center;
@@ -51,6 +70,9 @@ html {
     color: white;
     background: black;
 }
+#clock-controls > #clock-set {
+    padding: 5px 5px;
+}
 #guest-controls {
     grid-row: 1 / 3;
     grid-column: 5 / 6;
@@ -61,4 +83,59 @@ html {
 
     display: flex;
     flex-direction: column;
+}
+.team-score {
+    padding: 5px;
+    border: 3px dotted white;
+    border-radius: 15px 15px 15px 15px;
+}
+.logo-select {
+    grid-row: 3 / 5;
+    border-radius: 10px 10px 10px 10px;
+    border: 5px solid white;
+    color: white;
+    background: black;
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+}
+.logo-select.home {
+    grid-column: 1 / 2;
+}
+.logo-select.guest {
+    grid-column: 5 / 6;
+}
+.img-container:before {
+    content: "";
+	display: block;
+	padding-top: 100%;
+}
+.img-container {
+    position: relative;
+    width: 100%;
+}
+.img-container img {
+    position:  absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+}
+input[type='number'] {
+    border-radius: 8px 8px 8px 8px;
+    height: 1.5em;
+}
+input[type='submit'] {
+    border-radius: 8px 8px 8px 8px;
+    background-color: lightgrey;
+    border: 2px solid blue;
+}
+
+button {
+    border-radius: 8px 8px 8px 8px;
+    background-color: lightgrey;
+    border: 2px solid blue;
 }
