@@ -83,7 +83,7 @@ app.on('ready', () => {
 // Handle messages from windows
 
 ipc.on('set-logo', (e, msg) => {
-    let filepaths = dialog.showOpenDialog(e.sender, {title: `Select Team Logo for ${msg.home? 'home':'guest'}`, buttonLabel: 'Select', properties: 'openFile'});
+    let filepaths = dialog.showOpenDialog(e.sender, {title: `Select Team Logo for ${msg.home? 'home':'guest'}`, buttonLabel: 'Select', properties: 'openFile', filters: [{name: 'Images', extensions: ['png','jpeg','jpg', 'gif', 'svg']}, {name: 'All Files', extensions: ['*']}]});
     if(!filepaths) return;
     scoreboardWindows[msg.scoreboard].webContents.send('set-logo', {home: msg.home, image_path: filepaths[0]});
     e.sender.webContents.send('set-logo', {home: msg.home, image_path: filepaths[0], scoreboard: msg.scoreboard});

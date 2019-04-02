@@ -88,11 +88,11 @@ function newscoreboardtab(name)  {
     });
     // Also allow easy incrementing of clock
     tr.controls.querySelector('#increase-clock').addEventListener('click', () => {
-        clockset(Math.max(data[name].clock.current + 1000, 0));
+        clockset(gir(data[name].clock.current + 1000, 0, 5999000));
     });
     
     tr.controls.querySelector('#decrease-clock').addEventListener('click', () => {
-        clockset(Math.max(data[name].clock.current - 1000, 0));
+        clockset(gir(data[name].clock.current - 1000, 0, 5999000));
     });
 
     data[name].home.logo = tr.controls.querySelector('.logo-select.home img');
