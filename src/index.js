@@ -16,16 +16,24 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 */
+/**
+ * @file Main of program
+ * @license AGPL-3.0
+ * @author Gary Kim
+ */
 
 const electron = require('electron');
 
 const { app, BrowserWindow, dialog } = electron;
 const ipc = electron.ipcMain;
 
-let scoreboardWindows = [""];
-let controlWindow;
+const ipctasks = require('./ipctasks');
+
+let scoreboardWindows = [BrowserWindow];
+let controlWindow = BrowserWindow;
 
 let closeConfirm = null;
+
 
 /**
  * Create new scoreboard and add it to scoreboardWindows array.
@@ -33,16 +41,19 @@ let closeConfirm = null;
  */
 function createScoreboard() {
     
-    let current = new BrowserWindow();
+    let current = new BrowserWindow({show: false});
     let number = scoreboardWindows.length;
     scoreboardWindows.push(current);
     
     current.loadFile('ui/scoreboard.html');
 
-    current.on('responsive', (e) => {
+    current.on('ready-to-show', (e) => {
         current.webContents.send('title-set', `Scoreboard #${number}`);
+        current.show();
     });
     
+    controlWindow.webContents.send('create-scoreboard', number);
+
     current.on('close', (e) => {
         e.preventDefault();
         if(dialog.showMessageBox({type: 'info', buttons: ['Quit', 'Cancel'], title: 'Quit Scoreboard', message: `Close Scoreboard #${number}: ${current.webContents.getTitle()}`, detail: `Are you sure you would like to quit Scoreboard #${number}: ${current.webContents.getTitle()}?`, browserWindow: current}) === 0)  {
@@ -55,6 +66,7 @@ function createScoreboard() {
 
 /**
  * Creates a control board window (Only one per instance of the program. Having more then one will lead to unexpected behavior)
+ * @returns {Electron.BrowserWindow} controlWindow
  */
 function createControl() {
     
@@ -71,33 +83,27 @@ function createControl() {
             controlWindow.destroy();
             app.quit();
         }
-    })
+    });
+
+    return controlWindow;
 }
 
 app.on('ready', () => {
     scoreboardWindows[0] = (new BrowserWindow({show: false}));
-    createControl();
-    createScoreboard();
+    createControl().on('ready-to-show', createScoreboard);
 });
 
 // Handle messages from windows
+ipctasks.init(controlWindow, scoreboardWindows);
 
-ipc.on('set-logo', (e, msg) => {
-    let filepaths = dialog.showOpenDialog(e.sender, {title: `Select Team Logo for ${msg.home? 'home':'guest'}`, buttonLabel: 'Select', properties: 'openFile', filters: [{name: 'Images', extensions: ['png','jpeg','jpg', 'gif', 'svg']}, {name: 'All Files', extensions: ['*']}]});
-    if(!filepaths) return;
-    scoreboardWindows[msg.scoreboard].webContents.send('set-logo', {home: msg.home, image_path: filepaths[0]});
-    e.sender.webContents.send('set-logo', {home: msg.home, image_path: filepaths[0], scoreboard: msg.scoreboard});
+ipc.on('create-scoreboard', () => {
+    createScoreboard();
 });
 
-ipc.on('relay', (e, msg) => {
-    console.log(`Relaying ${msg.content} to ${msg.relayTo} on ${msg.channel}`);
-    scoreboardWindows[msg.relayTo].webContents.send(msg.channel,msg.content);
-});
-
+// Handle shutdown messages
 ipc.on('shutdown', (e, msg) => {
     switch(msg) {
         case -2:
-        //closeConfirm.close();
         closeConfirm.minimize();
         closeConfirm = null;
         break;
@@ -115,4 +121,8 @@ ipc.on('shutdown', (e, msg) => {
         scoreboardWindows[msg].destroy();
         break;
     }
+});
+
+ipc.on('close', (e, msg) => {
+    scoreboardWindows[msg].close();
 });

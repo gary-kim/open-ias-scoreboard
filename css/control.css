@@ -31,12 +31,12 @@ html {
     height: 100%;
     width: 100%;
 }
-.tabs {
+.tab-container {
     overflow: hidden;
     border: 1px solid #ccc;
     background-color: #f1f1f1;
 }
-.tabs button {
+.tabs button, .tab-container input[type="button"] {
     background-color: inherit;
     float: left;
     border: none;
@@ -45,11 +45,22 @@ html {
     padding: 14px 16px;
     transition: 0.3s;
 }
-.tabs button:hover {
+.tabs button:hover, .tab-container input[type="button"]:hover {
     background-color: #ddd;
 }
 .tabs button.active {
     background-color: #ccc;
+}
+#board-controls {
+    grid-row: 3 / 4;
+    grid-column: 2 / 5;
+    border-radius: 10px 10px 10px 10px;
+    border: 5px solid white;
+    color: white;
+    background: black;
+
+    display: flex;
+    flex-direction: column;
 }
 #home-controls  {
     grid-row: 1 / 3;
@@ -138,4 +149,10 @@ button {
     border-radius: 8px 8px 8px 8px;
     background-color: lightgrey;
     border: 2px solid blue;
+}
+.hidden {
+    display: none;
+}
+label {
+    color: white;
 }

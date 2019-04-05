@@ -15,6 +15,11 @@
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
+/**
+ * @file Run scoreboard
+ * @license AGPL-3.0
+ * @author Gary Kim
+ */
 
 const electron = require('electron');
 const ipc = electron.ipcRenderer;
@@ -44,8 +49,8 @@ let scoreDisplays = {
 }
 
 let logos = {
-    home: document.createElement('img'),
-    guest: document.createElement('img')
+    home: HTMLImageElement,
+    guest: HTMLImageElement
 }
 
 function main() {
@@ -59,8 +64,12 @@ function main() {
     add2array(scoreDisplays.home.dom.querySelectorAll('.digit'), scoreDisplays.home.digits);
     add2array(scoreDisplays.guest.dom.querySelectorAll('.digit'), scoreDisplays.guest.digits);
 
-
-    function add2array(data, arr)   {
+    /**
+     * 
+     * @param {any[]} data 
+     * @param {any[]} arr 
+     */
+    function add2array(data, arr) {
         data.forEach((tmp) => {
             arr.push(tmp);
         });
@@ -75,22 +84,22 @@ function main() {
  * Changes the clock display
  * @param {number} seconds Time to be shown on clock in seconds.
  */
-function changeclock(seconds)  {
+function changeclock(seconds) {
     let secondDisplay = Math.floor(seconds % 60);
     let minuteDisplay = Math.floor((seconds / 60));
 
     changedigit(clock.digits[3], Math.floor(secondDisplay % 10));
     changedigit(clock.digits[2], Math.floor(secondDisplay / 10));
     changedigit(clock.digits[1], Math.floor(minuteDisplay % 10));
-    changedigit(clock.digits[0], Math.floor(minuteDisplay / 10));    
+    changedigit(clock.digits[0], Math.floor(minuteDisplay / 10));
 }
 /**
  * Changes score that is shown on the scoreboard.
  * @param {number} score Score to set
  * @param {boolean} home Setting home team's score?
  */
-function changescore(score, home)   {
-    let display = home? scoreDisplays.home : scoreDisplays.guest;
+function changescore(score, home) {
+    let display = home ? scoreDisplays.home : scoreDisplays.guest;
 
     changedigit(display.digits[0], Math.floor(score / 10));
     changedigit(display.digits[1], Math.floor(score % 10));
@@ -101,7 +110,7 @@ function changescore(score, home)   {
  * @param {Node} digit Node of image to change
  * @param {number} val Number to change digit to
  */
-function changedigit(digit,val)   {
+function changedigit(digit, val) {
     digit.src = digitLocation(val);
 }
 
@@ -116,5 +125,5 @@ ipc.on('title-set', (e, input) => {
     document.title = input;
 });
 ipc.on('set-logo', (e, msg) => {
-    logos[msg.home? 'home':'guest'].src = msg.image_path;
+    logos[msg.home ? 'home' : 'guest'].src = msg.image_path;
 });

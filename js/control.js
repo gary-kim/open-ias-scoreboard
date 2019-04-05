@@ -15,6 +15,11 @@
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
+/**
+ * @file Run control board
+ * @license AGPL-3.0
+ * @author Gary Kim
+ */
 
 const electron = require('electron');
 const ipc = electron.ipcRenderer;
@@ -27,31 +32,44 @@ let data = [{
         countdown: true,
         last: new Date(),
         current: 0,
-        display: document.createElement('div'),
-        displaystate: document.createElement('div')
+        display: HTMLDivElement,
+        displaystate: HTMLDivElement
     },
     home: {
         current: 0,
-        logo: document.createElement('img')
+        logo: HTMLImageElement
     },
     guest: {
         current: 0,
-        logo: document.createElement('img')
+        logo: HTMLImageElement
     }
 }]
 
 window.onload = main;
 
 function main() {
-    data.push(data[0]);
-    let newscoreboard = newscoreboardtab(1);
-    document.querySelector('.tabs').appendChild(newscoreboard.tab);
-    document.querySelector('.content').appendChild(newscoreboard.controls);
     setInterval(cron,500);
+    // Attach global event listeners
+    document.querySelector('#new-tab-button').addEventListener('click', () => {
+        ipc.send('create-scoreboard');
+    });
 }
 
 /**
- * Create new scorebaord
+ * 
+ * @param {number} name the index number of the new scoreboard
+ */
+function createnewscoreboard(name) {
+    data[name] = JSON.parse(JSON.stringify(data[0]));
+    let newscoreboard = newscoreboardtab(name);
+    let newtab = document.querySelector('.tabs').appendChild(newscoreboard.tab);
+    document.querySelector('.content').appendChild(newscoreboard.controls);
+    newtab.click();
+
+}
+
+/**
+ * Create new scoreboard controls
  * @param {number} name The position in the data array of this new scoreboard
  * @returns {Object} an object with {tab: Node, controls: Node}
  */
@@ -68,6 +86,15 @@ function newscoreboardtab(name)  {
     // Create new scoreboard controls for the new tab.
     tr.controls = document.querySelector('template#newcontrols').content.children[0].cloneNode(true);
     tr.controls.setAttribute('scoreboard-id', name.toString());
+
+    // Scoreboard overall controls
+    tr.controls.querySelector('#visibility').addEventListener('click', (e) => {
+        let action = (e.currentTarget.checked)? 'show': 'hide';
+        ipc.send('window-op', {'id': name, action: action});
+    });
+    tr.controls.querySelector('#close-tab').addEventListener('click', (e) => {
+        ipc.send('close', name);
+    });
     
     // clock controls
     tr.controls.querySelector('#clock-toggle').addEventListener('click', (e) => {
@@ -98,10 +125,11 @@ function newscoreboardtab(name)  {
     data[name].home.logo = tr.controls.querySelector('.logo-select.home img');
     data[name].guest.logo = tr.controls.querySelector('.logo-select.guest img');
 
+    // team image controls
+
     tr.controls.querySelector('.logo-select.home button').addEventListener('click', () => {
         setteamlogo(true, name);
     });
-
     tr.controls.querySelector('.logo-select.guest button').addEventListener('click', () => {
         setteamlogo(false, name);
     });
@@ -143,8 +171,6 @@ function newscoreboardtab(name)  {
         }
     }
 
-    // team image controls
-
     return tr;
 }
 
@@ -155,6 +181,18 @@ function newscoreboardtab(name)  {
  */
 function changescoreboardtab(e)  {
     let ct = e.currentTarget.getAttribute('scoreboard-id');
+    document.querySelectorAll('.tabs > button').forEach((curr) => {
+        curr.classList.remove('active');
+    });
+    e.currentTarget.classList.add('active');
+    document.querySelectorAll('.controls').forEach((ctrl) => {
+        if(ctrl.getAttribute('scoreboard-id').toString() === ct.toString()) {
+            ctrl.classList.remove('hidden');
+        } else {
+            ctrl.classList.add('hidden');
+        }
+    });
+    ipc.send('focus', ct);
 }
 
 /**
@@ -188,9 +226,18 @@ function cron() {
     
 }
 
+
+// All recieveable commands
 ipc.on('destory-scoreboard', (e, msg) => {
     data[msg] = null;
+    document.querySelector(`.tabs > button[scoreboard-id='${msg}']`).remove();
+    document.querySelector(`.content > div[scoreboard-id='${msg}']`).remove();
+
 })
 ipc.on('set-logo', (e, msg) => {
     data[msg.scoreboard][msg.home?'home':'guest'].logo.src = msg.image_path;
+});
+ipc.on('create-scoreboard', (e, msg) => {
+    console.log(msg);
+    createnewscoreboard(msg);
 });
