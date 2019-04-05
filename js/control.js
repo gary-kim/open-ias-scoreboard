@@ -42,7 +42,8 @@ let data = [{
     guest: {
         current: 0,
         logo: HTMLImageElement
-    }
+    },
+    tab: HTMLButtonElement
 }]
 
 window.onload = main;
@@ -65,7 +66,7 @@ function createnewscoreboard(name) {
     let newtab = document.querySelector('.tabs').appendChild(newscoreboard.tab);
     document.querySelector('.content').appendChild(newscoreboard.controls);
     newtab.click();
-
+    data[name].tab = newtab;
 }
 
 /**
@@ -80,7 +81,7 @@ function newscoreboardtab(name)  {
     // Create new tab
     tr.tab = document.createElement('button');
     tr.tab.setAttribute('scoreboard-id', name.toString());
-    tr.tab.innerText = name.toString();
+    tr.tab.innerText = `Scoreboard #${name.toString()}`;
     tr.tab.addEventListener('click', changescoreboardtab);
 
     // Create new scoreboard controls for the new tab.
@@ -94,6 +95,13 @@ function newscoreboardtab(name)  {
     });
     tr.controls.querySelector('#close-tab').addEventListener('click', (e) => {
         ipc.send('close', name);
+    });
+    let rename_tab = tr.controls.querySelector('#rename-tab');
+    rename_tab.value = `Scoreboard #${name}`;
+    rename_tab.addEventListener('input', (e) => {
+        let newtitle = e.currentTarget.value;
+        data[name].tab.innerText = newtitle;
+        ipc.send('relay', {relayTo: name, channel: 'title-set', content: newtitle});
     });
     
     // clock controls
