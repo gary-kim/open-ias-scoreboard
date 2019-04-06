@@ -32,7 +32,7 @@ window.onload = main;
  * @returns {string} file path to image with requested digit or symbol
  */
 function digitLocation(val) {
-    return `../res/clock/digits/${val}.gif`;
+    return `../res/clock/digits/${val}.svg`;
 }
 
 let clock = {

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Manually created by Gennaro Prota - March 8, 2005.
+     Ineligible for copyright -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg viewBox="0 0 400 400" width="96px" height="320px" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink">
+
+  <defs>
+    <circle id="my_point" cx="100" cy="100" r="100" fill="#ffcc00" />
+  </defs>
+
+  <use x="100" y="-150" xlink:href="#my_point"/>
+
+  <use x="100" y="350" xlink:href="#my_point"/>
+</svg>
