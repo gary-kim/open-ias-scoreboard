@@ -28,6 +28,7 @@ const { app, BrowserWindow, dialog } = electron;
 const ipc = electron.ipcMain;
 
 const ipctasks = require('./ipctasks');
+const menu = require('./menu');
 
 let scoreboardWindows = [BrowserWindow];
 let controlWindow = BrowserWindow;
@@ -40,28 +41,28 @@ let closeConfirm = null;
  * @todo Handle multiple scoreboards properly
  */
 function createScoreboard() {
-    
-    let current = new BrowserWindow({show: false});
+
+    let current = new BrowserWindow({ show: false });
     let number = scoreboardWindows.length;
     scoreboardWindows.push(current);
-    
+
     current.loadFile('ui/scoreboard.html');
 
     current.on('ready-to-show', (e) => {
         current.webContents.send('title-set', `Scoreboard #${number}`);
         current.show();
     });
-    
+
     controlWindow.webContents.send('create-scoreboard', number);
 
     current.on('close', (e) => {
         e.preventDefault();
-        if(dialog.showMessageBox({type: 'info', buttons: ['Quit', 'Cancel'], title: 'Quit Scoreboard', message: `Close Scoreboard #${number}: ${current.webContents.getTitle()}`, detail: `Are you sure you would like to quit Scoreboard #${number}: ${current.webContents.getTitle()}?`, browserWindow: current}) === 0)  {
+        if (dialog.showMessageBox({ type: 'info', buttons: ['Quit', 'Cancel'], title: 'Quit Scoreboard', message: `Close Scoreboard #${number}: ${current.webContents.getTitle()}`, detail: `Are you sure you would like to quit Scoreboard #${number}: ${current.webContents.getTitle()}?`, browserWindow: current }) === 0) {
             current.destroy();
         }
         controlWindow.webContents.send('destory-scoreboard', number);
     });
-    
+
 }
 
 /**
@@ -69,14 +70,14 @@ function createScoreboard() {
  * @returns {Electron.BrowserWindow} controlWindow
  */
 function createControl() {
-    
+
     controlWindow = new BrowserWindow();
-    
+
     controlWindow.loadFile('ui/control.html');
-    
+
     controlWindow.on('close', (e) => {
         e.preventDefault();
-        if(dialog.showMessageBox({type: 'info', buttons: ['Quit', 'Cancel'], title: 'Quit Scoreboard', message: "Close all scoreboards from Scoreboard", detail: `Are you sure you would like to quit Scoreboard? (WARNING: This will close all open scoreboards.)`, browserWindow: controlWindow}) === 0)  {
+        if (dialog.showMessageBox({ type: 'info', buttons: ['Quit', 'Cancel'], title: 'Quit Scoreboard', message: "Close all scoreboards from Scoreboard", detail: `Are you sure you would like to quit Scoreboard? (WARNING: This will close all open scoreboards.)`, browserWindow: controlWindow }) === 0) {
             scoreboardWindows.forEach((each) => {
                 each.destroy();
             });
@@ -89,8 +90,10 @@ function createControl() {
 }
 
 app.on('ready', () => {
-    scoreboardWindows[0] = (new BrowserWindow({show: false}));
-    createControl().on('ready-to-show', createScoreboard);
+    scoreboardWindows[0] = (new BrowserWindow({ show: false }));
+    let ctw = createControl();
+    ctw.on('ready-to-show', createScoreboard);
+    menu.init(ctw);
 });
 
 // Handle messages from windows
@@ -102,24 +105,24 @@ ipc.on('create-scoreboard', () => {
 
 // Handle shutdown messages
 ipc.on('shutdown', (e, msg) => {
-    switch(msg) {
+    switch (msg) {
         case -2:
-        closeConfirm.minimize();
-        closeConfirm = null;
-        break;
+            closeConfirm.minimize();
+            closeConfirm = null;
+            break;
         case -1:
-        e.sender.destroy();
-        break;
+            e.sender.destroy();
+            break;
         case 0:
-        scoreboardWindows.forEach((each) => {
-            each.destroy();
-        });
-        controlWindow.destroy();
-        app.quit();
-        break;
+            scoreboardWindows.forEach((each) => {
+                each.destroy();
+            });
+            controlWindow.destroy();
+            app.quit();
+            break;
         default:
-        scoreboardWindows[msg].destroy();
-        break;
+            scoreboardWindows[msg].destroy();
+            break;
     }
 });
 
