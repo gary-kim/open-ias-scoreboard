@@ -44,10 +44,7 @@ function init(controlWindow, scoreboardWindows)    {
         scoreboardWindows[parseInt(msg.relayTo)].webContents.send(msg.channel,msg.content);
     });
 
-    ipc.on('open-about-program', (e, msg) => {
-        let about_view = new BrowserWindow();
-        about_view.loadFile("ui/about.html");
-    });
+    ipc.on('open-about-program', openAboutProgram);
 
     ipc.on('focus', (e, msg) => {
         scoreboardWindows[msg].focus();
@@ -56,8 +53,14 @@ function init(controlWindow, scoreboardWindows)    {
     ipc.on('window-op', (e, msg) => {
         scoreboardWindows[msg.id][msg.action]();
     });
-}
+};
+
+function openAboutProgram() {
+    let about_view = new BrowserWindow({autoHideMenuBar: true});
+    about_view.loadFile("ui/about.html");
+};
 
 module.exports = {
-    init: init
+    init: init,
+    openAboutProgram: openAboutProgram
 }

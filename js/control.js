@@ -74,8 +74,8 @@ function createnewscoreboard(name) {
     let newscoreboard = newscoreboardtab(name);
     let newtab = document.querySelector('.tabs').appendChild(newscoreboard.tab);
     document.querySelector('.content').appendChild(newscoreboard.controls);
-    newtab.click();
     data[name].tab = newtab;
+    setscoreboardtab(name);
 }
 
 /**

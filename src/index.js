@@ -41,7 +41,7 @@ let closeConfirm = null;
  */
 function createScoreboard() {
 
-    let current = new BrowserWindow({ show: false });
+    let current = new BrowserWindow({ show: false, autoHideMenuBar: true });
     let number = scoreboardWindows.length;
     scoreboardWindows.push(current);
 
@@ -92,7 +92,7 @@ app.on('ready', () => {
     scoreboardWindows[0] = (new BrowserWindow({ show: false }));
     let ctw = createControl();
     ctw.on('ready-to-show', createScoreboard);
-    menu.init(ctw);
+    menu.init(ctw, undefined, undefined, {openAboutProgram: ipctasks.openAboutProgram});
 });
 
 // Handle messages from windows

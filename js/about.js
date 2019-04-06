@@ -43,7 +43,8 @@ function main() {
             let ttmp = document.createElement('a');
             ttmp.innerText = attr.url;
             ttmp.setAttribute('href', '#');
-            ttmp.addEventListener('click', () => {
+            ttmp.addEventListener('click', (e) => {
+                e.preventDefault();
                 shell.openExternal(attr.url);
             });
             tmp.append(ttmp);

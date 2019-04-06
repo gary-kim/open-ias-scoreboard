@@ -18,15 +18,16 @@
 
 const electron = require('electron');
 
-const { app, Menu, ipcRenderer} = electron;
+const { app, Menu } = electron;
 
 /**
  * Set menu on control window
  * @param {Electron.BrowserWindow} controlWindow Control BrowserWindow
  * @param {Electron.BrowserWindow[]} [scoreboard] Scoreboard BrowserWindow Array
  * @param {string|number} [name] Scoreboard to set on (requires scoreboard to be given)
+ * @param {Function{}} functions Object of functions used by init function 
  */
-function init(controlWindow, scoreboard, name) {
+function init(controlWindow, scoreboard, name, functions) {
     const template = [
         {
             label: "Scoreboard",
@@ -44,12 +45,12 @@ function init(controlWindow, scoreboard, name) {
                     label: 'Home',
                     submenu: [
                         {
-                            label: 'Increase Score (I)',
+                            label: 'Increase Score',
                             accelerator: 'i',
                             click: () => { send({ action: 'home', arg: 'increase' }) }
                         },
                         {
-                            label: 'Decrease Score (K)',
+                            label: 'Decrease Score',
                             accelerator: 'k',
                             click: () => { send({ action: 'home', arg: 'decrease' }) }
                         }
@@ -59,12 +60,12 @@ function init(controlWindow, scoreboard, name) {
                     label: 'Guest',
                     submenu: [
                         {
-                            label: 'Increase Score (O)',
+                            label: 'Increase Score',
                             accelerator: 'o',
                             click: () => { send({ action: 'guest', arg: 'increase' }) }
                         },
                         {
-                            label: 'Decrease Score (L)',
+                            label: 'Decrease Score',
                             accelerator: 'l',
                             click: () => { send({ action: 'guest', arg: 'decrease' }) }
                         }
@@ -74,17 +75,17 @@ function init(controlWindow, scoreboard, name) {
                     label: 'Clock',
                     submenu: [
                         {
-                            label: 'Toggle Clock (T)',
+                            label: 'Toggle Clock',
                             accelerator: 't',
                             click: () => { send({ action: 'clock', arg: 'toggle' }) }
                         },
                         {
-                            label: 'Increase by 1 Second (U)',
+                            label: 'Increase by 1 Second',
                             accelerator: 'u',
                             click: () => { send({ action: 'clock', arg: 'increase' }) }
                         },
                         {
-                            label: 'Reduce by 1 Second (J)',
+                            label: 'Reduce by 1 Second',
                             accelerator: 'j',
                             click: () => { send({ action: 'clock', arg: 'decrease' }) }
                         }
@@ -96,23 +97,23 @@ function init(controlWindow, scoreboard, name) {
             label: 'Scoreboard Tabs',
             submenu: [
                 {
-                    label: 'New Tab (ctrl or cmd + t)',
+                    label: 'New Tab',
                     accelerator: 'CmdOrCtrl+t',
                     click: () => { send({ action: 'tabs', arg: 'new' }) }
                 },
                 {
-                    label: 'Next Tab (ctrl + tab)',
+                    label: 'Next Tab',
                     accelerator: 'ctrl+tab',
                     click: () => { send({ action: 'tabs', arg: 'next' }) }
                 },
                 {
-                    label: 'Previous Tab (ctrl + shift + tab)',
+                    label: 'Previous Tab',
                     accelerator: 'ctrl+shift+tab',
                     click: () => { send({ action: 'tabs', arg: 'previous' }) }
                 },
                 {
-                    label: 'Close Tab (ctrl + w)',
-                    accelerator: 'ctrl+w',
+                    label: 'Close Tab',
+                    accelerator: 'CmdOrCtrl+w',
                     click: () => { send({ action: 'tabs', arg: 'close' }) }
                 }
             ]
@@ -122,7 +123,7 @@ function init(controlWindow, scoreboard, name) {
             submenu: [
                 {
                     label: 'About',
-                    click: () => { ipcRenderer.send('open-about-program') }
+                    click: () => { functions.openAboutProgram() }
                 }
             ]
         }
