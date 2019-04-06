@@ -1,3 +1,53 @@
+/*
+    Open IAS Scoreboard is an Electron based scoreboard application for IASAS event livestreams.
+    Copyright (C) 2019 Gary Kim <gary@garykim.dev>
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as published
+    by the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+*/
+
 body {
+    text-align: center;
+}
+#attributions {
+    overflow-y: auto;
+    border: 2px dashed black;
+}
+details {
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    padding: .5em .5em 0;
+    box-shadow: 0 0 10px 0 rgb(88, 88, 88);
+    padding: 10px 10px 10px 10px;
+    margin: 10px 10px;
+    text-align: left;
+
+    -moz-user-select: none;
+    user-select: none;
+}
+summary {
+    font-weight: bold;
+    margin: -.5em -.5em 0;
+    padding: .5em;
+    text-align: left;
+}
+details[open] {
+    padding: .5em;
+}
+details[open] summary {
+    border-bottom: 1px solid #aaa;
+    margin-bottom: .5em;
+}
+details[open] > div {
     text-align: center;
 }

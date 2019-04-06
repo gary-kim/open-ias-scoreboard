@@ -1,5 +1,5 @@
 /*
-    IASAS Scoreboard is an Electron based scoreboard application for IASAS event livestreams.
+    Open IAS Scoreboard is an Electron based scoreboard application for IASAS event livestreams.
     Copyright (C) 2019 Gary Kim <gary@garykim.dev>
 
     This program is free software: you can redistribute it and/or modify
@@ -14,7 +14,6 @@
 
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
-
 */
 /**
  * @file Main of program

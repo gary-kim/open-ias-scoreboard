@@ -1,7 +1,7 @@
 {
-  "name": "iasas-scoreboard",
+  "name": "open-ias-scoreboard",
   "version": "0.1.1",
-  "description": "Scoreboard is an Electron application to use for putting scoreboards on IASAS event livestreams.",
+  "description": "Open IAS Scoreboard is an Electron application to use for putting scoreboards on IASAS event livestreams.",
   "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -31,7 +31,8 @@
     "babel-preset-react": "^6.24.1",
     "electron": "^4.1.1",
     "electron-forge": "^5.2.4",
-    "electron-prebuilt-compile": "4.0.0"
+    "electron-prebuilt-compile": "4.0.0",
+    "oss-attribution-generator": "^1.7.1"
   },
   "config": {
     "forge": {
@@ -48,25 +49,30 @@
         ]
       },
       "electronPackagerConfig": {
-        "packageManager": "npm"
+        "packageManager": "npm",
+        "appCopyright": "©2019 Gary Kim <gary@garykim.dev>"
       },
       "electronWinstallerConfig": {
-        "name": "Scoreboard"
+        "name": "open-ias-scoreboard",
+        "authors": "Gary Kim",
+        "title": "Open IAS Scoreboard"
       },
       "electronInstallerDebian": {
-        "name": "scoreboard",
+        "name": "open-ias-scoreboard",
         "maintainer": "Gary Kim",
-        "productName": "Scoreboard",
+        "productName": "Open IAS Scoreboard",
         "productDescription": "Scoreboard is an Electron application to use for putting scoreboards on IASAS event livestreams."
       },
-      "electronInstallerRedhat": {},
+      "electronInstallerRedhat": {
+        "authors": "Gary Kim"
+      },
       "github_repository": {
         "owner": "Gary Kim",
-        "name": "iasas-scoreboard"
+        "name": "open-ias-scoreboard"
       },
       "windowsStoreConfig": {
         "packageName": "",
-        "name": "iasasscoreboard"
+        "name": "openiasscoreboard"
       }
     }
   }
