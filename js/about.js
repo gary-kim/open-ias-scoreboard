@@ -24,6 +24,13 @@ let tmp;
 
 window.onload = main;
 function main() {
+
+    document.querySelector('#email').addEventListener('click', (e) => {
+        e.preventDefault();
+        shell.openExternal('mailto:gary@garykim.dev');
+    });
+    
+
     fs.readFile(path.join(__dirname, '..', '/oss-attribution/licenseInfos.json'), (err, data) => {
         let attributions = JSON.parse(data);
         let attributions_dom = document.querySelector('#attributions');
@@ -36,8 +43,7 @@ function main() {
             attr_dom.append(tmp);
 
             tmp = document.createElement('p');
-            tmp.innerText = `
-        ${attr.name}    ${attr.version}
+            tmp.innerText = `${attr.name}    ${attr.version}
         ${attr.authors}
         `;
             let ttmp = document.createElement('a');
@@ -56,7 +62,23 @@ function main() {
 
             attributions_dom.append(attr_dom);
         });
-    })
+    });
+    let tmp0 = document.querySelector('#project-license');
+    tmp = document.createElement('div');
+    tmp.innerText = `\n` + fs.readFileSync(path.join(__dirname, '..', 'LICENSE'));
+    let ttmp = document.createElement('p');
+    ttmp.innerText = `Open IAS Scoreboard    ${JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'package.json'))).version}
+    Gary Kim <gary@garykim.dev>`;
+    tmp0.appendChild(ttmp);
+    ttmp = document.createElement('a');
+    ttmp.innerText = "https://github.com/gary-kim/open-ias-scoreboard"
+    ttmp.setAttribute('href', '#');
+    ttmp.addEventListener('click', (e) => {
+        e.preventDefault();
+        shell.openExternal('https://github.com/gary-kim/open-ias-scoreboard');
+    });
+    tmp0.appendChild(ttmp);
+    tmp0.appendChild(tmp);
 
 }
 

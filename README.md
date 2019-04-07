@@ -1,5 +1,5 @@
-# Scoreboard
-Scoreboard is an Electron application to use for putting scoreboards on IASAS event livestreams.
+# Open IAS Scoreboard
+Open IAS Scoreboard is an Electron application to use for putting scoreboards on IASAS event livestreams.
 
 ## Features
 
