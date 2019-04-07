@@ -46,12 +46,12 @@ let scoreDisplays = {
     guest: {
         digits: []
     }
-}
+};
 
 let logos = {
     home: HTMLImageElement,
     guest: HTMLImageElement
-}
+};
 
 function main() {
     // Setup

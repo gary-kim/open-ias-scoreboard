@@ -53,14 +53,14 @@ function init(controlWindow, scoreboardWindows)    {
     ipc.on('window-op', (e, msg) => {
         scoreboardWindows[msg.id][msg.action]();
     });
-};
+}
 
 function openAboutProgram() {
     let about_view = new BrowserWindow({autoHideMenuBar: true});
     about_view.loadFile("ui/about.html");
-};
+}
 
 module.exports = {
     init: init,
     openAboutProgram: openAboutProgram
-}
+};

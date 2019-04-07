@@ -61,7 +61,7 @@ function main() {
         ipc.send('create-scoreboard');
     });
     document.querySelector('#about-program').addEventListener('click', () => {
-        ipc.send('open-about-program')
+        ipc.send('open-about-program');
     });
 }
 
@@ -91,7 +91,7 @@ function newscoreboardtab(name) {
     tr.tab = document.createElement('button');
     tr.tab.setAttribute('scoreboard-id', name.toString());
     tr.tab.innerText = `Scoreboard #${name.toString()}`;
-    tr.tab.addEventListener('click', (e) => { setscoreboardtab(e.currentTarget.getAttribute('scoreboard-id')) });
+    tr.tab.addEventListener('click', (e) => { setscoreboardtab(e.currentTarget.getAttribute('scoreboard-id')); });
 
     // Create new scoreboard controls for the new tab.
     tr.controls = document.querySelector('template#newcontrols').content.children[0].cloneNode(true);
@@ -106,7 +106,7 @@ function newscoreboardtab(name) {
         ipc.send('window-op', { id: name, action: 'close' });
     });
     tr.controls.querySelector('#focus-window').addEventListener('click', (e) => {
-        ipc.send('window-op', { id: name, action: 'focus' })
+        ipc.send('window-op', { id: name, action: 'focus' });
     });
     let rename_tab = tr.controls.querySelector('#rename-tab');
     rename_tab.value = `Scoreboard #${name}`;
@@ -166,8 +166,8 @@ function newscoreboardtab(name) {
      */
     function teamscorecontrols(setOn, attachTo, home) {
         setOn.scoreDisplay = attachTo.querySelector('.team-score');
-        attachTo.querySelector('.increase-score').addEventListener('click', () => { changeScore(name, home, 1) });
-        attachTo.querySelector('.decrease-score').addEventListener('click', () => { changeScore(name, home, -1) });
+        attachTo.querySelector('.increase-score').addEventListener('click', () => { changeScore(name, home, 1); });
+        attachTo.querySelector('.decrease-score').addEventListener('click', () => { changeScore(name, home, -1); });
     }
 
     return tr;
@@ -221,7 +221,7 @@ function setscoreboardtab(name) {
     current = name;
     document.querySelectorAll('.tabs > button').forEach((curr) => {
         if (curr.getAttribute('scoreboard-id').toString() === current.toString()) {
-            curr.classList.add('active')
+            curr.classList.add('active');
         } else {
             curr.classList.remove('active');
         }
@@ -288,7 +288,7 @@ ipc.on('destory-scoreboard', (e, msg) => {
     let scoreboards = scoreboardList();
     let i = scoreboards.indexOf(current);
     setscoreboardtab(scoreboards[(i + 1) % scoreboards.length]);
-})
+});
 ipc.on('set-logo', (e, msg) => {
     data[msg.scoreboard][msg.home ? 'home' : 'guest'].logo.src = msg.image_path;
 });
@@ -330,7 +330,7 @@ ipc.on('keyboard-input', (e, msg) => {
                     break;
             }
             break;
-        case 'tabs':
+        case 'tabs': {
             let scoreboards = scoreboardList();
             let i = scoreboards.indexOf(current);
             switch (msg.arg) {
@@ -340,13 +340,14 @@ ipc.on('keyboard-input', (e, msg) => {
                 case 'new':
                     ipc.send('create-scoreboard');
                     break;
-                case 'previous':
+                case 'previous': {
                     let setto = i - 1;
                     if (setto < 0) {
                         setto = scoreboards.length - 1;
                     }
                     setscoreboardtab(scoreboards[setto]);
                     break;
+                }
                 case 'close':
                     if (i !== -1) {
                         ipc.send('window-op', { id: current, action: 'close' });
@@ -354,5 +355,6 @@ ipc.on('keyboard-input', (e, msg) => {
                     break;
             }
             break;
+        }
     }
 });

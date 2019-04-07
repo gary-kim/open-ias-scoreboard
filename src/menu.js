@@ -18,7 +18,7 @@
 
 const electron = require('electron');
 
-const { app, Menu } = electron;
+const { Menu } = electron;
 
 /**
  * Set menu on control window
@@ -47,12 +47,12 @@ function init(controlWindow, scoreboard, name, functions) {
                         {
                             label: 'Increase Score',
                             accelerator: 'i',
-                            click: () => { send({ action: 'home', arg: 'increase' }) }
+                            click: () => { send({ action: 'home', arg: 'increase' }); }
                         },
                         {
                             label: 'Decrease Score',
                             accelerator: 'k',
-                            click: () => { send({ action: 'home', arg: 'decrease' }) }
+                            click: () => { send({ action: 'home', arg: 'decrease' }); }
                         }
                     ]
                 },
@@ -62,12 +62,12 @@ function init(controlWindow, scoreboard, name, functions) {
                         {
                             label: 'Increase Score',
                             accelerator: 'o',
-                            click: () => { send({ action: 'guest', arg: 'increase' }) }
+                            click: () => { send({ action: 'guest', arg: 'increase' }); }
                         },
                         {
                             label: 'Decrease Score',
                             accelerator: 'l',
-                            click: () => { send({ action: 'guest', arg: 'decrease' }) }
+                            click: () => { send({ action: 'guest', arg: 'decrease' }); }
                         }
                     ]
                 },
@@ -77,17 +77,17 @@ function init(controlWindow, scoreboard, name, functions) {
                         {
                             label: 'Toggle Clock',
                             accelerator: 't',
-                            click: () => { send({ action: 'clock', arg: 'toggle' }) }
+                            click: () => { send({ action: 'clock', arg: 'toggle' }); }
                         },
                         {
                             label: 'Increase by 1 Second',
                             accelerator: 'u',
-                            click: () => { send({ action: 'clock', arg: 'increase' }) }
+                            click: () => { send({ action: 'clock', arg: 'increase' }); }
                         },
                         {
                             label: 'Reduce by 1 Second',
                             accelerator: 'j',
-                            click: () => { send({ action: 'clock', arg: 'decrease' }) }
+                            click: () => { send({ action: 'clock', arg: 'decrease' }); }
                         }
                     ]
                 }
@@ -99,22 +99,22 @@ function init(controlWindow, scoreboard, name, functions) {
                 {
                     label: 'New Tab',
                     accelerator: 'CmdOrCtrl+t',
-                    click: () => { send({ action: 'tabs', arg: 'new' }) }
+                    click: () => { send({ action: 'tabs', arg: 'new' }); }
                 },
                 {
                     label: 'Next Tab',
                     accelerator: 'ctrl+tab',
-                    click: () => { send({ action: 'tabs', arg: 'next' }) }
+                    click: () => { send({ action: 'tabs', arg: 'next' }); }
                 },
                 {
                     label: 'Previous Tab',
                     accelerator: 'ctrl+shift+tab',
-                    click: () => { send({ action: 'tabs', arg: 'previous' }) }
+                    click: () => { send({ action: 'tabs', arg: 'previous' }); }
                 },
                 {
                     label: 'Close Tab',
                     accelerator: 'CmdOrCtrl+w',
-                    click: () => { send({ action: 'tabs', arg: 'close' }) }
+                    click: () => { send({ action: 'tabs', arg: 'close' }); }
                 }
             ]
         },
@@ -123,11 +123,11 @@ function init(controlWindow, scoreboard, name, functions) {
             submenu: [
                 {
                     label: 'About',
-                    click: () => { functions.openAboutProgram() }
+                    click: () => { functions.openAboutProgram(); }
                 }
             ]
         }
-    ]
+    ];
     const menu = Menu.buildFromTemplate(template);
     controlWindow.setMenu(menu);
 
@@ -142,4 +142,4 @@ function init(controlWindow, scoreboard, name, functions) {
 
 module.exports = {
     init: init
-}
+};

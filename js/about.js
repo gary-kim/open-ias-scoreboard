@@ -30,39 +30,11 @@ function main() {
         shell.openExternal('mailto:gary@garykim.dev');
     });
     
-
-    fs.readFile(path.join(__dirname, '..', '/oss-attribution/licenseInfos.json'), (err, data) => {
-        let attributions = JSON.parse(data);
-        let attributions_dom = document.querySelector('#attributions');
-
-        Object.values(attributions).forEach((attr) => {
-            let attr_dom = document.createElement('details');
-
-            tmp = document.createElement('summary');
-            tmp.innerText = attr.name;
-            attr_dom.append(tmp);
-
-            tmp = document.createElement('p');
-            tmp.innerText = `${attr.name}    ${attr.version}
-        ${attr.authors}
-        `;
-            let ttmp = document.createElement('a');
-            ttmp.innerText = attr.url;
-            ttmp.setAttribute('href', '#');
-            ttmp.addEventListener('click', (e) => {
-                e.preventDefault();
-                shell.openExternal(attr.url);
-            });
-            tmp.append(ttmp);
-            attr_dom.append(tmp);
-
-            tmp = document.createElement('div');
-            tmp.innerText = attr.licenseText;
-            attr_dom.append(tmp);
-
-            attributions_dom.append(attr_dom);
-        });
+    fs.readFile(path.join(__dirname, '..', 'oss-attribution/attributions.txt'), (err, data) => {
+        console.log(err);
+        document.querySelector('#attributions').innerText = data;
     });
+    
     let tmp0 = document.querySelector('#project-license');
     tmp = document.createElement('div');
     tmp.innerText = `\n` + fs.readFileSync(path.join(__dirname, '..', 'LICENSE'));
@@ -71,7 +43,7 @@ function main() {
     Gary Kim <gary@garykim.dev>`;
     tmp0.appendChild(ttmp);
     ttmp = document.createElement('a');
-    ttmp.innerText = "https://github.com/gary-kim/open-ias-scoreboard"
+    ttmp.innerText = "https://github.com/gary-kim/open-ias-scoreboard";
     ttmp.setAttribute('href', '#');
     ttmp.addEventListener('click', (e) => {
         e.preventDefault();
