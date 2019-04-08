@@ -2510,12 +2510,12 @@ escodegen@^1.6.1:
     source-map "~0.6.1"
 
 eslint-plugin-jsdoc@^4.8.0:
-  version "4.8.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-jsdoc/-/eslint-plugin-jsdoc-4.8.0.tgz#f0e4fae74bd6b83654025bb77d1f39cfe4916152"
-  integrity sha512-kaGr4AAoU38t2CLJKKVSI0PQ0Clmh9lTjxdwopercV5vU0ZkyDyooyKX4ip1HHp2OSGYQYtp1tDjTexVhfQH+A==
+  version "4.8.2"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-jsdoc/-/eslint-plugin-jsdoc-4.8.2.tgz#d1f9d503865f0a57244f1d580b72d6f6383bd118"
+  integrity sha512-4ybjEYqUdrE6fMbsU2PS71Q8H9+iMxoDOI0eNZG0o99T70rOFRV3C4enTNBzoqjAU1UwecnmWONyb8zjdpLneQ==
   dependencies:
     comment-parser "^0.5.4"
-    jsdoctypeparser "^2.0.0-alpha-8"
+    jsdoctypeparser "3.1.0"
     lodash "^4.17.11"
 
 eslint-scope@^4.0.3:
@@ -3048,9 +3048,9 @@ get-folder-size@^2.0.1:
     tiny-each-async "2.0.3"
 
 get-in-range@^0.2.1:
-  version "0.2.3"
-  resolved "https://registry.yarnpkg.com/get-in-range/-/get-in-range-0.2.3.tgz#d5d9123e5f78bf62eb46de54db7aabd5d0e129ce"
-  integrity sha512-m13pLjGwvoWJe3KG4AJXjWReKPH52HqFDmFuxYf3IRlg1ngNHCm4wsS54tmfNFgni1EPCL9WDfSKX8lPj+FO7g==
+  version "0.2.4"
+  resolved "https://registry.yarnpkg.com/get-in-range/-/get-in-range-0.2.4.tgz#fe3a4a259652aeffd38f71e22f48375e631b3ce3"
+  integrity sha512-HKwzMM+8zSTJ0pNW+q1Wkh7jVq4IbwvXEU8VMzr3GxQZ5dQ8y6L5Tn8DGWiDnedFSnlyR8pE3bZ9uvJrwZ4iIA==
 
 get-installed-path@^2.0.3:
   version "2.1.1"
@@ -3779,10 +3779,10 @@ jsbn@~0.1.0:
   resolved "https://registry.yarnpkg.com/jsbn/-/jsbn-0.1.1.tgz#a5e654c2e5a2deb5f201d96cefbca80c0ef2f513"
   integrity sha1-peZUwuWi3rXyAdls77yoDA7y9RM=
 
-jsdoctypeparser@^2.0.0-alpha-8:
-  version "2.0.0-alpha-8"
-  resolved "https://registry.yarnpkg.com/jsdoctypeparser/-/jsdoctypeparser-2.0.0-alpha-8.tgz#baf137fb8e2a558810adcf19d2d2a2f680e90a5f"
-  integrity sha1-uvE3+44qVYgQrc8Z0tKi9oDpCl8=
+jsdoctypeparser@3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/jsdoctypeparser/-/jsdoctypeparser-3.1.0.tgz#2f65f75165c4d9c632bb4fda13ed36b78321a43b"
+  integrity sha512-JNbkKpDFqbYjg+IU3FNo7qjX7Opy7CwjHywT32zgAcz/d4lX6Umn5jOHVETUdnNNgGrMk0nEx1gvP0F4M0hzlQ==
 
 jsdom@^7.0.2:
   version "7.2.2"

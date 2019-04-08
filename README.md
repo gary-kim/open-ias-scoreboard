@@ -4,6 +4,8 @@
 
 Open IAS Scoreboard is an Electron application to use for putting scoreboards on IASAS event livestreams.
 
+While this was the original use of Open IAS Scoreboard, feel free to use the program for any purpose. Any pull requests that expand the capabilities of Open IAS Scoreboard, even beyond the original purpose is appreciated
+
 
 ## Features
 
@@ -26,6 +28,6 @@ Feel free to make pull requests with bug fixes or new features. You may also mak
 ## License
 Copyright &copy; 2019 Gary Kim <<gary@garykim.dev>>
 
-Source code licensed under AGPL-3.0
+Source code licensed under AGPL-3.0-only
 
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fgary-kim%2Fopen-ias-scoreboard.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fgary-kim%2Fopen-ias-scoreboard?ref=badge_large)
