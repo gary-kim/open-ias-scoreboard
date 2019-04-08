@@ -27,10 +27,10 @@ const { BrowserWindow, dialog } = electron;
 const ipc = electron.ipcMain;
 
 /**
- * Init ipc listeners
+ * Init ipc listeners.
  * 
- * @param {Electron.BrowserWindow} controlWindow 
- * @param {Electron.BrowserWindow[]} scoreboardWindows 
+ * @param {Electron.BrowserWindow} controlWindow The control window for the program.
+ * @param {Electron.BrowserWindow[]} scoreboardWindows An array of all the scoreboard windows for the program.
  */
 function init(controlWindow, scoreboardWindows)    {
     ipc.on('set-logo', async (e, msg) => {

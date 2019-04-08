@@ -34,7 +34,8 @@
     "electron": "^4.1.1",
     "electron-forge": "^5.2.4",
     "electron-prebuilt-compile": "4.0.0",
-    "eslint": "^5.16.0"
+    "eslint": "^5.16.0",
+    "eslint-plugin-jsdoc": "^4.8.0"
   },
   "config": {
     "forge": {

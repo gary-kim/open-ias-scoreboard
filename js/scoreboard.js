@@ -27,9 +27,10 @@ const ipc = electron.ipcRenderer;
 window.onload = main;
 
 /**
- * Converts a digit or symbol to a file path to an image representing that digit or symbol
- * @param {string|number} val digit or symbol to get file path for.
- * @returns {string} file path to image with requested digit or symbol
+ * Converts a digit or symbol to a file path to an image representing that digit or symbol.
+ *
+ * @param {string|number} val  Digit or symbol to get file path for.
+ * @returns {string} File path to image with requested digit or symbol.
  */
 function digitLocation(val) {
     return `../res/clock/digits/${val}.svg`;
@@ -66,8 +67,8 @@ function main() {
 
     /**
      * 
-     * @param {any[]} data 
-     * @param {any[]} arr 
+     * @param {any[]} data The object to which the extra elements should be added.
+     * @param {any[]} arr An array of the elements to be added to data.
      */
     function add2array(data, arr) {
         data.forEach((tmp) => {
@@ -81,8 +82,9 @@ function main() {
 }
 
 /**
- * Changes the clock display
- * @param {number} seconds Time to be shown on clock in seconds.
+ * Changes the clock display.
+ *
+ * @param {number} seconds  Time to be shown on clock in seconds.
  */
 function changeclock(seconds) {
     let secondDisplay = Math.floor(seconds % 60);
@@ -95,8 +97,9 @@ function changeclock(seconds) {
 }
 /**
  * Changes score that is shown on the scoreboard.
- * @param {number} score Score to set
- * @param {boolean} home Setting home team's score?
+ *
+ * @param {number} score  Score to set.
+ * @param {boolean} home  Setting home team's score?
  */
 function changescore(score, home) {
     let display = home ? scoreDisplays.home : scoreDisplays.guest;
@@ -107,8 +110,9 @@ function changescore(score, home) {
 
 /**
  * Changes the image of the given Node to the one representing the number passed as val.
- * @param {Node} digit Node of image to change
- * @param {number} val Number to change digit to
+ *
+ * @param {Node} digit  Node of image to change.
+ * @param {number} val  Number to change digit to.
  */
 function changedigit(digit, val) {
     digit.src = digitLocation(val);

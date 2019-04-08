@@ -21,11 +21,12 @@ const electron = require('electron');
 const { Menu } = electron;
 
 /**
- * Set menu on control window
- * @param {Electron.BrowserWindow} controlWindow Control BrowserWindow
- * @param {Electron.BrowserWindow[]} [scoreboard] Scoreboard BrowserWindow Array
- * @param {string|number} [name] Scoreboard to set on (requires scoreboard to be given)
- * @param {Function{}} functions Object of functions used by init function 
+ * Set the menu on the control window.
+ * 
+ * @param {Electron.BrowserWindow} controlWindow Control BrowserWindow.
+ * @param {Electron.BrowserWindow[]} [scoreboard] Scoreboard BrowserWindow Array.
+ * @param {string|number} [name] Scoreboard to set on (requires scoreboard to be given).
+ * @param {Object.<Function>} functions Object of functions used by init function 
  */
 function init(controlWindow, scoreboard, name, functions) {
     const template = [
@@ -132,8 +133,9 @@ function init(controlWindow, scoreboard, name, functions) {
     controlWindow.setMenu(menu);
 
     /**
-     * Send command to Control Window
-     * @param {Object} toSend 
+     * Send command to Control Window.
+     *
+     * @param {*} toSend The information to send to control window.
      */
     function send(toSend) {
         controlWindow.webContents.send('keyboard-input', toSend);

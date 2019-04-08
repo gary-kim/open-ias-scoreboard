@@ -66,8 +66,9 @@ function main() {
 }
 
 /**
- * 
- * @param {number} name the index number of the new scoreboard
+ * Creates a new scoreboard and assigns the related information and nodes to the data object.
+ *
+ * @param {number} name The index number of the new scoreboard.
  */
 function createnewscoreboard(name) {
     data[name] = JSON.parse(JSON.stringify(data[0]));
@@ -79,9 +80,10 @@ function createnewscoreboard(name) {
 }
 
 /**
- * Create new scoreboard controls
- * @param {number} name The position in the data array of this new scoreboard
- * @returns {Object} an object with {tab: Node, controls: Node}
+ * Create new scoreboard control nodes and attach required nodes to data object.
+ *
+ * @param {number} name The position in the data array of this new scoreboard.
+ * @returns {Object} An object with {tab: Node, controls: Node}.
  */
 function newscoreboardtab(name) {
     let tr = {};
@@ -102,10 +104,10 @@ function newscoreboardtab(name) {
         let action = (e.currentTarget.checked) ? 'show' : 'hide';
         ipc.send('window-op', { 'id': name, action: action });
     });
-    tr.controls.querySelector('#close-tab').addEventListener('click', (e) => {
+    tr.controls.querySelector('#close-tab').addEventListener('click', () => {
         ipc.send('window-op', { id: name, action: 'close' });
     });
-    tr.controls.querySelector('#focus-window').addEventListener('click', (e) => {
+    tr.controls.querySelector('#focus-window').addEventListener('click', () => {
         ipc.send('window-op', { id: name, action: 'focus' });
     });
     let rename_tab = tr.controls.querySelector('#rename-tab');
@@ -117,7 +119,7 @@ function newscoreboardtab(name) {
     });
 
     // clock controls
-    tr.controls.querySelector('#clock-toggle').addEventListener('click', (e) => {
+    tr.controls.querySelector('#clock-toggle').addEventListener('click', () => {
         toggleClock(name);
     });
     data[name].clock.display = tr.controls.querySelector('#clock-current');
@@ -159,9 +161,9 @@ function newscoreboardtab(name) {
     teamscorecontrols(data[name].guest, tr.controls.querySelector('#guest-controls'), false);
     /**
      * 
-     * @param {Object} setOn data object for specific team
-     * @param {Node} attachTo Node with div of team controls
-     * @param {boolean} home setting for home?
+     * @param {Object} setOn Data object for specific team.
+     * @param {Node} attachTo Node with div of team controls.
+     * @param {boolean} home Setting for home?
      * 
      */
     function teamscorecontrols(setOn, attachTo, home) {
@@ -175,9 +177,10 @@ function newscoreboardtab(name) {
 
 /**
  * Sets the clock time then updates the clock on the control board and scoreboard.
- * @param {string|number} name Scoreboard to set on
- * @param {number} miliseconds Time to set clock to in miliseconds
- * @param {boolean} [delta] Should change by miliseconds?
+ *
+ * @param {string|number} name  Scoreboard to set on.
+ * @param {number} miliseconds  Time to set clock to in miliseconds.
+ * @param {boolean} [delta]  Should change by miliseconds?
  */
 function clockset(name, miliseconds, delta) {
     if (delta === true) {
@@ -190,8 +193,9 @@ function clockset(name, miliseconds, delta) {
 }
 
 /**
+ * Start or stop the clock of the specified scoreboard.
  * 
- * @param {string|number} name Scoreboard to toggle clock on 
+ * @param {string|number} name Scoreboard to toggle clock on.
  */
 function toggleClock(name) {
     let clock = data[name].clock;
@@ -201,10 +205,11 @@ function toggleClock(name) {
 }
 
 /**
- * Change score of team
- * @param {string|number} name Scoreboard to set on
- * @param {boolean} home Set on home?
- * @param {number} changeBy The value to change score by
+ * Change score of team.
+ *
+ * @param {string|number} name  Scoreboard to set on.
+ * @param {boolean} home  Set on home?
+ * @param {number} changeBy  The value to change score by.
  */
 function changeScore(name, home, changeBy) {
     let setOn = data[name][home ? 'home' : 'guest'];
@@ -214,8 +219,9 @@ function changeScore(name, home, changeBy) {
 }
 
 /**
- * Set the control window to be controlling another scoreboard tab
- * @param {string|name} name Scoreboard to change tab to
+ * Set the control window to be controlling another scoreboard tab.
+ *
+ * @param {string|name} name  Scoreboard to change tab to.
  */
 function setscoreboardtab(name) {
     current = name;
@@ -236,7 +242,7 @@ function setscoreboardtab(name) {
 }
 
 /**
- * @returns {Array[numbers]} All scoreboard indexes
+ * @returns {number[]} All scoreboard indexes.
  */
 function scoreboardList() {
     let tr = [];
@@ -250,10 +256,10 @@ function scoreboardList() {
 
 /**
  * 
- * Brings up dialog where team logo can be chosen
+ * Brings up dialog where team logo can be chosen.
  * 
- * @param {boolean} home Set for home?
- * @param {number} sbid Scoreboard id for team logo to be set for.
+ * @param {boolean} home  Set for home?
+ * @param {number} sbid  Scoreboard id for team logo to be set for.
  * 
  */
 function setteamlogo(home, sbid) {

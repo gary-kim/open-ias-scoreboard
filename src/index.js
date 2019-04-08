@@ -37,6 +37,7 @@ let closeConfirm = null;
 
 /**
  * Create new scoreboard and add it to scoreboardWindows array.
+ *
  * @todo Handle multiple scoreboards properly
  */
 function createScoreboard() {
@@ -47,7 +48,7 @@ function createScoreboard() {
 
     current.loadFile('ui/scoreboard.html');
 
-    current.on('ready-to-show', (e) => {
+    current.on('ready-to-show', () => {
         current.webContents.send('title-set', `Scoreboard #${number}`);
         current.show();
     });
@@ -65,8 +66,9 @@ function createScoreboard() {
 }
 
 /**
- * Creates a control board window (Only one per instance of the program. Having more then one will lead to unexpected behavior)
- * @returns {Electron.BrowserWindow} controlWindow
+ * Creates a control board window (Only one per instance of the program. Having more then one will lead to unexpected behavior).
+ *
+ * @returns {Electron.BrowserWindow} ControlWindow.
  */
 function createControl() {
 
