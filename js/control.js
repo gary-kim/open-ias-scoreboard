@@ -301,6 +301,8 @@ ipc.on('create-scoreboard', (e, msg) => {
     createnewscoreboard(msg);
 });
 ipc.on('keyboard-input', (e, msg) => {
+    if(document.activeElement.matches('input[type=text]'))
+        return;
     switch (msg.action) {
         case 'home':
             switch (msg.arg) {
