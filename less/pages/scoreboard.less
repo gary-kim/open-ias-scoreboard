@@ -30,6 +30,22 @@
     height: 100%;
     width: 100%;
 }
+.pseudo-relative {
+    position: relative;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    height: 0;
+    width: 0;
+}
+.team-name.placeholder {
+    content: 'Home';
+    visibility: hidden;
+}
+.team-name:not(.placeholder) {
+    position: absolute;
+    bottom: 0;
+}
 #home-score {
     grid-row: 1 / 3;
     grid-column: 1 / 2;
@@ -52,7 +68,6 @@
     border: 5px solid white;
     background: #c7c6c1;
     overflow: hidden;
-    position: relative;
 	width: calc(100% - 8x);
 }
 #home-logo img {
