@@ -4,8 +4,9 @@
   "description": "Open IAS Scoreboard is an Electron application to use for putting scoreboards on IASAS event livestreams.",
   "main": "src/index.js",
   "scripts": {
-    "prestart": "yarn licenses generate-disclaimer > oss-attribution/attributions.txt",
-    "premake": "yarn licenses generate-disclaimer > oss-attribution/attributions.txt",
+    "prestart": "yarn licenses generate-disclaimer > oss-attribution/attributions.txt && npx lessc --math=parens-division less/app.less css/app.css",
+    "premake": "yarn licenses generate-disclaimer > oss-attribution/attributions.txt && npx lessc --math=parens-division less/app.less css/app.css",
+    "pretest": "yarn licenses generate-disclaimer > oss-attribution/attributions.txt && npx lessc --math=parens-division less/app.less css/app.css",
     "test": "eslint --ext .js .",
     "start": "electron-forge start",
     "package": "electron-forge package",
@@ -35,7 +36,8 @@
     "electron-forge": "^5.2.4",
     "electron-prebuilt-compile": "4.0.0",
     "eslint": "^5.16.0",
-    "eslint-plugin-jsdoc": "^4.8.0"
+    "eslint-plugin-jsdoc": "^4.8.0",
+    "less": "^3.9.0"
   },
   "config": {
     "forge": {
