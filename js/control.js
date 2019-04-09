@@ -140,10 +140,9 @@ function newscoreboardtab(name) {
         clockset(name, gir(data[name].clock.current - 1000, 0, 5999000));
     });
 
+    // Set team logo controls
     data[name].home.logo = tr.controls.querySelector('.logo-select.home img');
     data[name].guest.logo = tr.controls.querySelector('.logo-select.guest img');
-
-    // team image controls
 
     tr.controls.querySelector('.logo-select.home button').addEventListener('click', () => {
         setteamlogo(true, name);
@@ -153,6 +152,13 @@ function newscoreboardtab(name) {
     });
 
 
+    // Set team name controls
+    tr.controls.querySelector('#home-name').addEventListener('input', (e) => {
+        changeName(name, true, e.currentTarget.value);
+    });
+    tr.controls.querySelector('#guest-name').addEventListener('input', (e) => {
+        changeName(name, false, e.currentTarget.value);
+    });
 
 
     // team score controls
@@ -215,6 +221,17 @@ function changeScore(name, home, changeBy) {
     setOn.current = gir(setOn.current + changeBy, 0, 99);
     setOn.scoreDisplay.innerText = setOn.current.toString().padStart(2, '0');
     ipc.send('relay', { relayTo: name, channel: 'set-score', content: { score: setOn.current, home: home } });
+}
+
+/**
+ * Changes the name of a team.
+ * 
+ * @param {number} sbid The id of the scoreboard to set on.
+ * @param {boolean} home Set on home?
+ * @param {string} changeTo The text to change the name to.
+ */
+function changeName(sbid, home, changeTo) {
+    ipc.send('relay', { relayTo: sbid, channel: 'set-name', content: { home: home, changeTo: changeTo }});
 }
 
 /**

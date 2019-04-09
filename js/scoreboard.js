@@ -48,9 +48,16 @@ let scoreDisplays = {
     }
 };
 
-let logos = {
-    home: HTMLImageElement,
-    guest: HTMLImageElement
+
+let teams = {
+    logos: {
+        home: HTMLImageElement,
+        guest: HTMLImageElement
+    },
+    name: {
+        home: HTMLSpanElement,
+        guest: HTMLSpanElement
+    }
 };
 
 function main() {
@@ -76,8 +83,12 @@ function main() {
     }
 
     // Set up team logos
-    logos.home = document.querySelector('#home-logo img');
-    logos.guest = document.querySelector('#guest-logo img');
+    teams.logos.home = document.querySelector('#home-logo img');
+    teams.logos.guest = document.querySelector('#guest-logo img');
+
+    // Set up team names
+    teams.name.home = document.querySelector('#home-name');
+    teams.name.guest = document.querySelector('#guest-name');
 }
 
 /**
@@ -128,5 +139,8 @@ ipc.on('title-set', (e, input) => {
     document.title = input;
 });
 ipc.on('set-logo', (e, msg) => {
-    logos[msg.home ? 'home' : 'guest'].src = msg.image_path;
+    teams.logos[msg.home ? 'home' : 'guest'].src = msg.image_path;
+});
+ipc.on('set-name', (e, msg) => {
+    teams.name[msg.home ? 'home' : 'guest'].innerText = msg.changeTo;
 });
