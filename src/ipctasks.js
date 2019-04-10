@@ -40,6 +40,7 @@ function init(controlWindow, scoreboardWindows)    {
     });
     
     ipc.on('relay', (e, msg) => {
+        console.log(`Relaying ${JSON.stringify(msg.content)} to ${msg.relayTo} on channel ${msg.channel}`);
         scoreboardWindows[parseInt(msg.relayTo)].webContents.send(msg.channel,msg.content);
     });
 
