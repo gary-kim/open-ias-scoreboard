@@ -55,7 +55,6 @@ let logos = {
 
 function main() {
     // Setup
-    console.log('started');
     // Set up clock and scoring
     clock.dom = document.querySelector('#main-clock');
     scoreDisplays.home.dom = document.querySelector('#home-score');
@@ -78,6 +77,12 @@ function main() {
     // Set up team logos
     logos.home = document.querySelector('#home-logo img');
     logos.guest = document.querySelector('#guest-logo img');
+
+    document.querySelectorAll('img').forEach((each) => {
+        each.addEventListener('dragstart', (e) => {
+            e.preventDefault();
+        });
+    });
 }
 
 /**
