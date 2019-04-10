@@ -15,14 +15,14 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-html#control {
-    @import './pages/control.less';
+.pseudo-relative {
+    position: relative;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    height: 0;
+    width: 0;
 }
-html#about {
-    @import './pages/about.less';
+.hidden {
+    display: none !important;
 }
-html#scoreboard {
-    @import './pages/scoreboard.less';
-}
-
-@import './shared.less';

@@ -22,6 +22,12 @@ body {
     overflow-y: auto;
     border: 2px dashed black;
 }
+summary {
+    font-weight: bold;
+    margin: -.5em -.5em 0;
+    padding: .5em;
+    text-align: left;
+}
 details {
     border: 1px solid #aaa;
     border-radius: 4px;
@@ -33,20 +39,17 @@ details {
 
     -moz-user-select: none;
     user-select: none;
-}
-summary {
-    font-weight: bold;
-    margin: -.5em -.5em 0;
-    padding: .5em;
-    text-align: left;
-}
-details[open] {
-    padding: .5em;
-}
-details[open] summary {
-    border-bottom: 1px solid #aaa;
-    margin-bottom: .5em;
-}
-details[open] > div {
-    text-align: center;
+
+    &[open] {
+        padding: 0.5em;
+    
+        & summary {
+            border-bottom: 1px solid #aaa;
+            margin-bottom: .5em;
+        }
+    
+        & > div {
+            text-align: center;
+        }
+    }   
 }
