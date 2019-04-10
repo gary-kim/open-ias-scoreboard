@@ -62,7 +62,6 @@ let teams = {
 
 function main() {
     // Setup
-    console.log('started');
     // Set up clock and scoring
     clock.dom = document.querySelector('#main-clock');
     scoreDisplays.home.dom = document.querySelector('#home-score');
@@ -89,6 +88,12 @@ function main() {
     // Set up team names
     teams.name.home = document.querySelector('#home-name');
     teams.name.guest = document.querySelector('#guest-name');
+
+    document.querySelectorAll('img').forEach((each) => {
+        each.addEventListener('dragstart', (e) => {
+            e.preventDefault();
+        });
+    });
 }
 
 /**
