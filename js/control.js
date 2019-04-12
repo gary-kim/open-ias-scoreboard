@@ -131,6 +131,10 @@ function newscoreboardtab(name) {
         let seconds = gir(tr.controls.querySelector('#clock-set-seconds').value, 0, 59);
         clockset(name, ((minutes * 60) + seconds) * 1000);
     });
+    // Set clock count down or count up.
+    tr.controls.querySelector('#clock-direction').addEventListener('click', (e) => {
+        data[name].clock.countdown = e.currentTarget.checked;
+    });
     // Also allow easy incrementing of clock
     tr.controls.querySelector('#increase-clock').addEventListener('click', () => {
         clockset(name, gir(data[name].clock.current + 1000, 0, 5999000));
@@ -291,7 +295,8 @@ function cron() {
         let each = data[i];
         if (each.clock.state) {
             let current = new Date();
-            each.clock.current = Math.max(each.clock.current + (each.clock.last - current), 0);
+            let change = (each.clock.countdown)? (each.clock.last - current) : -(each.clock.last - current);
+            each.clock.current = gir(each.clock.current + change, 0, 5999000);
             each.clock.last = current;
             ipc.send('relay', { relayTo: i.toString(), channel: 'update-clock', content: (each.clock.current / 1000) });
             data[i].clock.display.innerText = `${Math.floor(each.clock.current / 1000 / 60).toString().padStart(2, '0')}:${Math.floor(each.clock.current / 1000 % 60).toString().padStart(2, '0')}`;

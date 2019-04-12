@@ -1,7 +1,3 @@
-info appdmg@0.4.5: The platform "linux" is incompatible with this module.
-info "appdmg@0.4.5" is an optional dependency and failed compatibility check. Excluding it from installation.
-info macos-alias@0.2.11: The platform "linux" is incompatible with this module.
-info "macos-alias@0.2.11" is an optional dependency and failed compatibility check. Excluding it from installation.
 THE FOLLOWING SETS FORTH ATTRIBUTION NOTICES FOR THIRD PARTY SOFTWARE THAT MAY BE CONTAINED IN PORTIONS OF THE OPEN IAS SCOREBOARD PRODUCT.
 
 -----

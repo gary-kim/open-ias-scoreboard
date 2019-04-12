@@ -24,13 +24,14 @@ let tmp;
 window.onload = main;
 function main() {
 
-    document.querySelector('#email').addEventListener('click', (e) => {
-        e.preventDefault();
-        shell.openExternal('mailto:gary@garykim.dev');
+    document.querySelectorAll('a.mailto').forEach((each) => {
+        each.addEventListener('click', (e) => {
+            e.preventDefault();
+            shell.openExternal(`mailto:${e.currentTarget.innerText}`);
+        });
     });
     
     fs.readFile(path.join(__dirname, '..', 'oss-attribution/attributions.txt'), (err, data) => {
-        console.log(err);
         document.querySelector('#attributions').innerText = data;
     });
     
