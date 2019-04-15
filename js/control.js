@@ -267,7 +267,7 @@ function setscoreboardtab(name) {
 function scoreboardList() {
     let tr = [];
     for (let i = 1; i < data.length; i++) {
-        if (data[i] !== null) {
+        if (data[i]) {
             tr.push(i);
         }
     }
