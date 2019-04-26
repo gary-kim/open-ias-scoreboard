@@ -25,7 +25,7 @@ const { Menu } = electron;
  * @param {Electron.BrowserWindow} controlWindow Control BrowserWindow.
  * @param {Electron.BrowserWindow[]} [scoreboard] Scoreboard BrowserWindow Array.
  * @param {string|number} [name] Scoreboard to set on (requires scoreboard to be given).
- * @param {Object.<Function>} functions Object of functions used by init function 
+ * @param {Object.<Function>} functions Object of functions used by init function. 
  */
 function init(controlWindow, scoreboard, name, functions) {
     const template = [
@@ -141,6 +141,25 @@ function init(controlWindow, scoreboard, name, functions) {
     }
 }
 
+/**
+ * This function sets the menu on the scoreboard window given.
+ * 
+ * @param {Electron.BrowserWindow} scoreboard The scoreboard window on which to add the menu.
+ * @param {number} id The id of the scoreboard being given in the scoreboard parameter.
+ */
+function forScoreboard(scoreboard, id) {
+    const template = [
+        {
+            label: 'Toggle Fullscreen',
+            accelerator: 'F11',
+            click: () => {}
+        }
+    ];
+
+    
+}
+
 module.exports = {
-    init: init
+    init: init,
+    forScoreboard: forScoreboard
 };

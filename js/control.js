@@ -91,6 +91,7 @@ function newscoreboardtab(name) {
     // Create new tab
     tr.tab = document.createElement('button');
     tr.tab.setAttribute('scoreboard-id', name.toString());
+    tr.tab.classList.add("tab-button");
     tr.tab.innerText = `Scoreboard #${name.toString()}`;
     tr.tab.addEventListener('click', (e) => { setscoreboardtab(e.currentTarget.getAttribute('scoreboard-id')); });
 

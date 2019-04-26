@@ -7,7 +7,7 @@
     "prestart": "yarn licenses --silent generate-disclaimer > oss-attribution/attributions.txt && npx lessc --math=parens-division less/app.less css/app.css",
     "premake": "yarn licenses --silent generate-disclaimer > oss-attribution/attributions.txt && npx lessc --math=parens-division less/app.less css/app.css",
     "pretest": "yarn licenses --silent generate-disclaimer > oss-attribution/attributions.txt && npx lessc --math=parens-division less/app.less css/app.css",
-    "test": "eslint --ext .js .",
+    "test": "npx eslint --ext .js .",
     "start": "electron-forge start",
     "package": "electron-forge package",
     "make": "electron-forge make"
