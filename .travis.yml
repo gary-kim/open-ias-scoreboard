@@ -2,3 +2,6 @@ language: node_js
 node_js: '8'
 dist: bionic
 cache: yarn
+script:
+  - yarn test
+  - electron-forge package
