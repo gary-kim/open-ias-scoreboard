@@ -122,8 +122,12 @@ function init(controlWindow, scoreboard, name, functions) {
             label: 'Help',
             submenu: [
                 {
-                    label: 'Show Documentation',
+                    label: 'How to Use',
                     click: () => { shell.openExternal("https://openias.garykim.dev/"); }
+                },
+                {
+                    label: 'Feedback',
+                    click: () => { shell.openExternal("https://openias.garykim.dev/users/feedback/"); }
                 },
                 {
                     label: 'About',
