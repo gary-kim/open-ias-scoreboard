@@ -17,7 +17,7 @@
 
 const electron = require('electron');
 
-const { Menu } = electron;
+const { Menu, shell } = electron;
 
 /**
  * Set the menu on the control window.
@@ -122,6 +122,10 @@ function init(controlWindow, scoreboard, name, functions) {
             label: 'Help',
             submenu: [
                 {
+                    label: 'Show Documentation',
+                    click: () => { shell.openExternal("https://openias.garykim.dev/"); }
+                },
+                {
                     label: 'About',
                     click: () => { functions.openAboutProgram(); }
                 }
@@ -152,11 +156,11 @@ function forScoreboard(scoreboard, id) {
         {
             label: 'Toggle Fullscreen',
             accelerator: 'F11',
-            click: () => {}
+            click: () => { }
         }
     ];
 
-    
+
 }
 
 module.exports = {

@@ -10,7 +10,10 @@ While this was the original use of Open IAS Scoreboard, feel free to use the pro
 ## Features
 
 - Scorekeeping
-- Game Countdown Clock
+- Game Clock
+    - Count Down
+    - Count Up
+    - Adjust on the fly
 - Keyboard Bindings
 - Set Team Logo
 - Multiple Scoreboard Tabs
@@ -21,12 +24,14 @@ While this was the original use of Open IAS Scoreboard, feel free to use the pro
 
 ## Contributing
 
+[Contributing](https://openias.garykim.dev/dev/)
+
 If you found a bug, please make an issue.
 
 Feel free to make pull requests with bug fixes or new features. You may also make an issue with a new feature proposal so that it can be discussed before beginning work.
 
 ## License
-Copyright &copy; 2019 Gary Kim <<gary@garykim.dev>>
+Copyright &copy; 2019 Gary Kim &lt;<gary@garykim.dev>&gt;
 
 Source code licensed under AGPL-3.0-only
 

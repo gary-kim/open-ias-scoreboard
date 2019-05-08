@@ -22,7 +22,7 @@
  * @author Gary Kim
  */
 const electron = require('electron');
-const { BrowserWindow, dialog } = electron;
+const { BrowserWindow, dialog, shell } = electron;
 const ipc = electron.ipcMain;
 
 /**
@@ -46,6 +46,10 @@ function init(controlWindow, scoreboardWindows)    {
 
     ipc.on('open-about-program', openAboutProgram);
 
+    ipc.on('open-link', (e, msg) => {
+        shell.openExternal(msg);
+    });
+
     ipc.on('focus', (e, msg) => {
         scoreboardWindows[msg].focus();
     });
@@ -59,6 +63,7 @@ function openAboutProgram() {
     let about_view = new BrowserWindow({autoHideMenuBar: true});
     about_view.loadFile("ui/about.html");
 }
+
 
 module.exports = {
     init: init,
