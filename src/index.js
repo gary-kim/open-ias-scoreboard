@@ -57,9 +57,9 @@ function createScoreboard() {
     current.on('close', (e) => {
         e.preventDefault();
         if (dialog.showMessageBox({ type: 'info', buttons: ['Quit', 'Cancel'], title: 'Quit Scoreboard', message: `Close Scoreboard #${number}: ${current.webContents.getTitle()}`, detail: `Are you sure you would like to quit Scoreboard #${number}: ${current.webContents.getTitle()}?`, browserWindow: current }) === 0) {
+            controlWindow.webContents.send('destory-scoreboard', number);
             current.destroy();
         }
-        controlWindow.webContents.send('destory-scoreboard', number);
     });
 
 }
