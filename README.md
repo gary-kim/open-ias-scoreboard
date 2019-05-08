@@ -2,9 +2,11 @@
 [![Build Status](https://travis-ci.org/gary-kim/open-ias-scoreboard.svg?branch=master)](https://travis-ci.org/gary-kim/open-ias-scoreboard)
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fgary-kim%2Fopen-ias-scoreboard.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fgary-kim%2Fopen-ias-scoreboard?ref=badge_shield)
 
-Open IAS Scoreboard is an Electron application to use for putting scoreboards on IASAS event livestreams.
+#### Open IAS Scoreboard is still in development and not ready for production use.
 
-While this was the original use of Open IAS Scoreboard, feel free to use the program for any purpose. Any pull requests that expand the capabilities of Open IAS Scoreboard, even beyond the original purpose is appreciated
+Open IAS Scoreboard is an Electron application originaly for putting scoreboards on IASAS event livestreams.
+
+While this was the original use of Open IAS Scoreboard, feel free to use the program for any purpose. Any pull requests that expand the capabilities of Open IAS Scoreboard, even beyond the original purpose is appreciated.
 
 
 ## Features
@@ -21,6 +23,9 @@ While this was the original use of Open IAS Scoreboard, feel free to use the pro
     - Control multiple Scoreboard scoreboards through one control window.
 - **Open Source**
 - **Cross Platform**
+
+![Control Board Screenshot](https://openias.garykim.dev/img/controlboard-screenshot.png)
+![Scoreboard Screenshot](https://openias.garykim.dev/img/scoreboard-screenshot.png)
 
 ## Contributing
 
