@@ -46,6 +46,7 @@ function createScoreboard() {
     scoreboardWindows.push(current);
 
     current.loadFile('ui/scoreboard.html');
+    menu.forScoreboard(current, number);
 
     current.on('ready-to-show', () => {
         current.webContents.send('title-set', `Scoreboard #${number}`);

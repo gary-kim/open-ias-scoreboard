@@ -86,7 +86,7 @@ function createnewscoreboard(name) {
  */
 function newscoreboardtab(name) {
     let tr = {};
-    let tmp;
+    //let tmp;
 
     // Create new tab
     tr.tab = document.createElement('button');

@@ -130,6 +130,10 @@ function init(controlWindow, scoreboard, name, functions) {
                     click: () => { shell.openExternal("https://openias.garykim.dev/users/feedback/"); }
                 },
                 {
+                    label: 'Source Code',
+                    click: () => { shell.openExternal("https://github.com/gary-kim/open-ias-scoreboard"); }
+                },
+                {
                     label: 'About',
                     click: () => { functions.openAboutProgram(); }
                 }
@@ -160,10 +164,11 @@ function forScoreboard(scoreboard, id) {
         {
             label: 'Toggle Fullscreen',
             accelerator: 'F11',
-            click: () => { }
+            click: () => { scoreboard.setFullScreen(!scoreboard.isFullScreen()); }
         }
     ];
-
+    const menu = Menu.buildFromTemplate(template);
+    scoreboard.setMenu(menu);
 
 }
 
