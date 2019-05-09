@@ -1,6 +1,34 @@
 language: node_js
 node_js: '8'
-dist: bionic
+dist: xenial
+sudo: required
+matrix:
+  include:
+    - dist: xenial
+      addons: 
+        apt:
+          packages:
+            - rpm
+            - fakeroot
+            - dpkg
+      after_success:
+        - electron-forge make -p linux
+    # - dist: xenial
+    #   before_install:
+    #     - sudo dpkg --add-architecture i386 
+    #     - wget -nc https://dl.winehq.org/wine-builds/winehq.key
+    #     - sudo apt-key add winehq.key
+    #     - sudo apt-add-repository 'deb https://dl.winehq.org/wine-builds/ubuntu/ xenial main'
+    #     - sudo apt install -y --install-recommends winehq-stable
+    #     - sudo apt install -y mono
+    - os: osx
+      addons:
+        homebrew:
+          packages:
+            - 
+          update: true
+      after_success: 
+        - electron-forge make -p darwin
 install:
   - npm install
   - npm install -g electron-forge
