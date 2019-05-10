@@ -1,6 +1,6 @@
 {
   "name": "open-ias-scoreboard",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Open IAS Scoreboard is an Electron application to use for putting scoreboards on IASAS event livestreams.",
   "main": "src/index.js",
   "scripts": {
