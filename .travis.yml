@@ -4,28 +4,46 @@ dist: xenial
 sudo: required
 matrix:
   include:
-    - dist: xenial
-      addons: 
-        apt:
-          packages:
-            - rpm
-            - fakeroot
-            - dpkg
-      script:
-        - npm test
-        - travis_wait electron-forge make -p linux
-    - os: windows
-      script: 
-        - travis_wait 50 electron-forge make -p win32
-    - os: osx
-      addons:
-        homebrew:
-          packages:
-            - 
-          update: true
-      script: 
-        - travis_wait electron-forge make -p darwin
+  - dist: xenial
+    addons:
+      apt:
+        packages:
+        - rpm
+        - fakeroot
+        - dpkg
+    script:
+    - npm test
+    - travis_wait electron-forge make -p linux
+    before_deploy:
+    - export RELEASE_DEPLOY=out/make/open-ias-scoreboard*
+  - os: windows
+    script:
+    - travis_wait 50 electron-forge make -p win32
+    before_deploy:
+    - export RELEASE_DEPLOY=$(ls out/make/squirrel.windows/x64/*.exe)
+  - os: osx
+    addons:
+      homebrew:
+        packages:
+        - 
+        update: true
+    script:
+    - export 
+    - travis_wait electron-forge make -p darwin
+    before_deploy:
+    - export RELEASE_DEPLOY=$(ls out/make/open-ias-scoreboard*)
 install:
-  - npm install
-  - npm install -g electron-forge
-  - npm install -g yarn
+- npm install
+- npm install -g electron-forge
+- npm install -g yarn
+deploy:
+  provider: releases
+  api_key:
+    secure: kur0ScVL2+Inb/aFRKWdgfCV+cZBRoxjaC22Y4/E8973YUy02OtrJrZDcfwv4XW8Vr4+59hQ7vZIE8yrUqgYOw3zQ7LbGW+W6N1HVQhELrhKLuYT2R/8Dsfn3kyoXpx/VZR+dWUcAAxtdAL5o9mOiUJIQVyxahcai1tLxo3iurVsD6Erb/g9o56kc4qjWVBGLizISE4BJSa3XUzjYrYhqr7X3nQlRFBNaUtvkUCWhrj2dc8PgvZ94E3UHFaT7vi0hi0KKu8lLHiWeyhRdpynfQccQWhCL/TEfENMT2xI/3DA0z8SEINSTVqmpNUw5+5OCSR10m1fM+3U+huQ6HR0rmqWdlP/bJkmFBvnYdybHOQY7mKtE+PMBBGJHAcnkMQeXD56wqc8aOwVOW7mPgGSeMH/tITI3+bDHi4HCebD7/4MQLTOEsG1Ju9a8Tr4dEaja/VOTEsFf1jaYZ4OFeDSvnnls/Pi3V6PqocHRez4u3TXLJws847oidZz+zDdw+ZaqGPUL1rw8qPgGJw7Mj65rbt1l1aDKrbZY/6gKNpBbV/TB3OHd5ZixU8q5OiYYz9hVnZtHW7fX3COkAZ6RLi4wNkIwIltulCcfLiSaYM7B3MXbJoBgTkMrgPypSgdjNJcTkSMuiUhRVGH3Pet427rFnugS2721o1mQcUapGM+/xk=
+  file_glob: true
+  file: "${RELEASE_DEPLOY}"
+  draft: true
+  prerelease: true
+  on:
+    tags: true
+    repo: gary-kim/open-ias-scoreboard
