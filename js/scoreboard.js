@@ -141,7 +141,7 @@ ipc.on('set-score', (e, msg) => {
     changescore(msg.score, msg.home);
 });
 ipc.on('title-set', (e, input) => {
-    document.title = input;
+    document.title = input || "Untitled Scoreboard";
 });
 ipc.on('set-logo', (e, msg) => {
     teams.logos[msg.home ? 'home' : 'guest'].src = msg.image_path;
