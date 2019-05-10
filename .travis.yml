@@ -16,7 +16,6 @@ matrix:
         - travis_wait electron-forge make -p linux
     - os: windows
       script: 
-        - npm test
         - travis_wait 50 electron-forge make -p win32
     - os: osx
       addons:
@@ -25,7 +24,6 @@ matrix:
             - 
           update: true
       script: 
-        - npm test
         - travis_wait electron-forge make -p darwin
 install:
   - npm install
