@@ -16,14 +16,14 @@ matrix:
     - travis_wait npm run make
     before_deploy:
     - export RELEASE_DEPLOY=out/make/open-ias-scoreboard*
-    - git reset --hard master
+    - git reset --hard
     - git clean -f
   - os: windows
     script:
     - travis_wait 50 npm run make
     before_deploy:
     - export RELEASE_DEPLOY=$(ls out/make/squirrel.windows/x64/*.exe)
-    - git reset --hard master
+    - git reset --hard
     - git clean -f
   - os: osx
     addons:
@@ -36,7 +36,7 @@ matrix:
     - travis_wait npm run make
     before_deploy:
     - export RELEASE_DEPLOY=$(ls out/make/open-ias-scoreboard*)
-    - git reset --hard master
+    - git reset --hard
     - git clean -f
 install:
 - npm install
