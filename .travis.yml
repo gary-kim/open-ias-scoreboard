@@ -51,6 +51,7 @@ deploy:
   draft: true
   prerelease: true
   overwrite: true
+  skip_cleanup: true
   on:
     tags: true
     repo: gary-kim/open-ias-scoreboard
