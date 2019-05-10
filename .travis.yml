@@ -14,18 +14,7 @@ matrix:
       script:
         - npm test
         - travis_wait electron-forge make -p linux
-    - dist: xenial
-      before_install:
-        - sudo dpkg --add-architecture i386 
-        - wget -nc https://dl.winehq.org/wine-builds/winehq.key
-        - sudo apt-key add winehq.key
-        - sudo apt-add-repository 'deb https://dl.winehq.org/wine-builds/ubuntu/ xenial main'
-        - sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
-        - sudo apt install apt-transport-https ca-certificates
-        - echo "deb https://download.mono-project.com/repo/ubuntu stable-xenial main" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list
-        - sudo apt update
-        - sudo apt install --install-recommends -y winehq-stable
-        - sudo apt install -y mono-devel
+    - os: windows
       script: 
         - npm test
         - travis_wait 50 electron-forge make -p win32
@@ -42,5 +31,3 @@ install:
   - npm install
   - npm install -g electron-forge
   - npm install -g yarn
-before_script:
-  - npm run attributions
