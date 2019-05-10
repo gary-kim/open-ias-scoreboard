@@ -13,14 +13,14 @@ matrix:
         - dpkg
     script:
     - npm test
-    - travis_wait electron-forge make -p linux
+    - travis_wait npm run make
     before_deploy:
     - export RELEASE_DEPLOY=out/make/open-ias-scoreboard*
     - git reset --hard master
     - git clean -f
   - os: windows
     script:
-    - travis_wait 50 electron-forge make -p win32
+    - travis_wait 50 npm run make
     before_deploy:
     - export RELEASE_DEPLOY=$(ls out/make/squirrel.windows/x64/*.exe)
     - git reset --hard master
@@ -33,7 +33,7 @@ matrix:
         update: true
     script:
     - export 
-    - travis_wait electron-forge make -p darwin
+    - travis_wait npm run make
     before_deploy:
     - export RELEASE_DEPLOY=$(ls out/make/open-ias-scoreboard*)
     - git reset --hard master
@@ -50,6 +50,7 @@ deploy:
   file: "${RELEASE_DEPLOY}"
   draft: true
   prerelease: true
+  overwrite: true
   on:
     tags: true
     repo: gary-kim/open-ias-scoreboard
