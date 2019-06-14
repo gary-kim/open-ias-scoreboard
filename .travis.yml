@@ -39,9 +39,11 @@ matrix:
     - git reset --hard
     - git clean -f
 install:
-- npm install
+- npm ci
 - npm install -g electron-forge
 - npm install -g yarn
+after_install:
+- npm run attributions
 deploy:
   provider: releases
   api_key:
