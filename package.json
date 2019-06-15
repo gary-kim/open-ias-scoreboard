@@ -48,6 +48,10 @@
     "appId": "dev.garykim.openias.scoreboard",
     "productName": "Open IAS Scoreboard",
     "copyright": "Copyright © 2019 Gary Kim <gary@garykim.dev>",
+    "files": [
+      "!test/**",
+      "!less/**"
+    ],
     "publish": null,
     "linux": {
       "category": "utility",
