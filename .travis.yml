@@ -5,6 +5,8 @@ sudo: required
 matrix:
   include:
   - dist: xenial
+    services:
+    - xvfb
     addons:
       apt:
         packages:

@@ -28,6 +28,8 @@ const ipc = electron.ipcMain;
 const ipctasks = require('./ipctasks');
 const menu = require('./menu');
 
+const skipCloseConfirm = process.env.OPENIASSCOREBOARD_TESTING == 'true' || process.env.OPENIASSCOREBOARD_TESTING == '1';
+
 let scoreboardWindows = [BrowserWindow];
 let controlWindow = BrowserWindow;
 
@@ -56,6 +58,7 @@ function createScoreboard() {
     controlWindow.webContents.send('create-scoreboard', number);
 
     current.on('close', (e) => {
+        if (skipCloseConfirm) return;
         e.preventDefault();
         if (dialog.showMessageBox({ type: 'info', buttons: ['Quit', 'Cancel'], title: 'Quit Scoreboard', message: `Close Scoreboard #${number}: ${current.webContents.getTitle()}`, detail: `Are you sure you would like to quit Scoreboard #${number}: ${current.webContents.getTitle()}?`, browserWindow: current }) === 0) {
             controlWindow.webContents.send('destory-scoreboard', number);
@@ -77,6 +80,7 @@ function createControl() {
     controlWindow.loadFile('ui/control.html');
 
     controlWindow.on('close', (e) => {
+        if (skipCloseConfirm) return;
         e.preventDefault();
         if (dialog.showMessageBox({ type: 'info', buttons: ['Quit', 'Cancel'], title: 'Quit Scoreboard', message: "Close all scoreboards from Scoreboard", detail: `Are you sure you would like to quit Scoreboard? (WARNING: This will close all open scoreboards.)`, browserWindow: controlWindow }) === 0) {
             scoreboardWindows.forEach((each) => {
@@ -94,7 +98,7 @@ app.on('ready', () => {
     scoreboardWindows[0] = (new BrowserWindow({ show: false }));
     let ctw = createControl();
     ctw.on('ready-to-show', createScoreboard);
-    menu.init(ctw, undefined, undefined, {openAboutProgram: ipctasks.openAboutProgram});
+    menu.init(ctw, undefined, undefined, { openAboutProgram: ipctasks.openAboutProgram });
 });
 
 // Handle messages from windows
