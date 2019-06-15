@@ -31,7 +31,7 @@ While this was the original use of Open IAS Scoreboard, feel free to use the pro
 
 [Contributing](https://openias.garykim.dev/dev/)
 
-If you found a bug, please make an issue.
+If you found a bug or have a feature request, please make an issue.
 
 Feel free to make pull requests with bug fixes or new features. You may also make an issue with a new feature proposal so that it can be discussed before beginning work.
 

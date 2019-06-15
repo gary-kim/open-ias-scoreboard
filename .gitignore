@@ -2,3 +2,4 @@ out/
 node_modules/
 css/
 npm_debug.log
+dist/

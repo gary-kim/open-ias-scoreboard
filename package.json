@@ -1,6 +1,7 @@
 {
   "name": "open-ias-scoreboard",
   "version": "0.2.3",
+  "private": true,
   "description": "Open IAS Scoreboard is an Electron application to use for putting scoreboards on IASAS event livestreams.",
   "main": "src/index.js",
   "scripts": {
@@ -17,14 +18,14 @@
     "type": "git",
     "url": "git+https://github.com/gary-kim/iasas-scoreboard.git"
   },
-  "author": "Gary Kim",
+  "author": "Gary Kim <gary@garykim.dev>",
   "license": "AGPL-3.0",
+  "copyright": "Copyright © 2019 Gary Kim <gary@garykim.dev>",
   "bugs": {
     "url": "https://github.com/gary-kim/iasas-scoreboard/issues"
   },
-  "homepage": "https://github.com/gary-kim/iasas-scoreboard#readme",
+  "homepage": "https://openias.garykim.dev/",
   "dependencies": {
-    "electron-compile": "^6.4.4",
     "electron-squirrel-startup": "^1.0.0",
     "get-in-range": "^0.2.4",
     "mousetrap": "^1.6.3"
@@ -34,6 +35,7 @@
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "electron": "^4.2.4",
+    "electron-builder": "^20.43.0",
     "electron-forge": "^5.2.4",
     "electron-prebuilt-compile": "4.0.0",
     "eslint": "^5.16.0",
@@ -42,6 +44,54 @@
     "less": "^3.9.0",
     "mocha": "^6.1.4",
     "spectron": "^5.0.0"
+  },
+  "build": {
+    "appId": "dev.garykim.openias.scoreboard",
+    "productName": "Open IAS Scoreboard",
+    "copyright": "Copyright © 2019 Gary Kim <gary@garykim.dev>",
+    "linux": {
+      "category": "utility",
+      "target": [
+        {
+          "target": "deb",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "rpm",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "AppImage",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "mac": {
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "win": {
+      "target": [
+        {
+          "target": "squirrel",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    }
   },
   "config": {
     "forge": {
