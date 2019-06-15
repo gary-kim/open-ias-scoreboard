@@ -6,22 +6,23 @@
   "main": "src/index.js",
   "scripts": {
     "prestart": "npx lessc --math=parens-division less/app.less css/app.css",
-    "premake": "mkdir -p oss-attribution && yarn licenses --silent generate-disclaimer > oss-attribution/attributions.txt && npx lessc --math=parens-division less/app.less css/app.css",
+    "premake": "npx lessc --math=parens-division less/app.less css/app.css",
     "attributions": "mkdir -p oss-attribution && yarn licenses --silent generate-disclaimer > oss-attribution/attributions.txt",
     "docs": "jsdoc -P ./package.json -r ./js ./src",
     "test": "npx eslint --ext .js . && npx mocha",
     "start": "npx electron .",
-    "make": "npx electron-builder build --publish never"
+    "make": "npx electron-builder build --publish never",
+    "ci": "mkdir -p oss-attribution && yarn licenses --silent generate-disclaimer > oss-attribution/attributions.txt && npx lessc --math=parens-division less/app.less css/app.css && npx electron-builder build --publish never"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gary-kim/iasas-scoreboard.git"
+    "url": "git+https://github.com/gary-kim/open-ias-scoreboard.git"
   },
   "author": "Gary Kim <gary@garykim.dev>",
   "license": "AGPL-3.0",
   "copyright": "Copyright © 2019 Gary Kim <gary@garykim.dev>",
   "bugs": {
-    "url": "https://github.com/gary-kim/iasas-scoreboard/issues"
+    "url": "https://github.com/gary-kim/open-ias-scoreboard/issues"
   },
   "homepage": "https://openias.garykim.dev/",
   "dependencies": {
