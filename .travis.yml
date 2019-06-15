@@ -1,5 +1,5 @@
 language: node_js
-node_js: '8'
+node_js: '10'
 dist: xenial
 sudo: required
 matrix:
@@ -17,14 +17,14 @@ matrix:
     - npm test
     - travis_wait npm run make
     before_deploy:
-    - export RELEASE_DEPLOY=out/make/open-ias-scoreboard*
+    - export RELEASE_DEPLOY=$(ls dist/open* dist/Open*)
     - git reset --hard
     - git clean -f
   - os: windows
     script:
     - travis_wait 50 npm run make
     before_deploy:
-    - export RELEASE_DEPLOY=$(ls out/make/squirrel.windows/x64/*.exe)
+    - export RELEASE_DEPLOY=$(ls dist/*.exe)
     - git reset --hard
     - git clean -f
   - os: osx
@@ -37,12 +37,11 @@ matrix:
     - export 
     - travis_wait npm run make
     before_deploy:
-    - export RELEASE_DEPLOY=$(ls out/make/open-ias-scoreboard*)
+    - export RELEASE_DEPLOY=$(ls dist/*.dmg)
     - git reset --hard
     - git clean -f
 install:
 - npm install
-- npm install -g electron-forge
 - npm install -g yarn
 deploy:
   provider: releases
