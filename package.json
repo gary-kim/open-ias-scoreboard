@@ -7,12 +7,11 @@
   "scripts": {
     "prestart": "npx lessc --math=parens-division less/app.less css/app.css",
     "premake": "npx lessc --math=parens-division less/app.less css/app.css",
-    "attributions": "yarn licenses --silent generate-disclaimer > oss-attribution/attributions.txt && npx lessc --math=parens-division less/app.less css/app.css",
+    "attributions": "yarn licenses --silent generate-disclaimer > oss-attribution/attributions.txt",
     "docs": "jsdoc -P ./package.json -r ./js ./src",
     "test": "npx eslint --ext .js . && npx mocha",
-    "start": "electron-forge start",
-    "package": "electron-forge package",
-    "make": "electron-forge make"
+    "start": "npx electron .",
+    "make": "npx electron-builder build"
   },
   "repository": {
     "type": "git",
@@ -31,13 +30,13 @@
     "mousetrap": "^1.6.3"
   },
   "devDependencies": {
+    "acorn": "^6.1.1",
     "babel-plugin-transform-async-to-generator": "^6.24.1",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "electron": "^4.2.4",
     "electron-builder": "^20.43.0",
-    "electron-forge": "^5.2.4",
-    "electron-prebuilt-compile": "4.0.0",
+    "electron-builder-squirrel-windows": "^20.44.0",
     "eslint": "^5.16.0",
     "eslint-plugin-jsdoc": "^4.8.4",
     "eslint-plugin-mocha": "^5.3.0",
@@ -49,6 +48,7 @@
     "appId": "dev.garykim.openias.scoreboard",
     "productName": "Open IAS Scoreboard",
     "copyright": "Copyright © 2019 Gary Kim <gary@garykim.dev>",
+    "publish": null,
     "linux": {
       "category": "utility",
       "target": [
@@ -85,7 +85,7 @@
     "win": {
       "target": [
         {
-          "target": "squirrel",
+          "target": "portable",
           "arch": [
             "x64"
           ]
