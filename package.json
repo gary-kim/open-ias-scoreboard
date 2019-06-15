@@ -11,7 +11,7 @@
     "docs": "jsdoc -P ./package.json -r ./js ./src",
     "test": "npx eslint --ext .js . && npx mocha",
     "start": "npx electron .",
-    "make": "npx electron-builder build"
+    "make": "npx electron-builder build --publish never"
   },
   "repository": {
     "type": "git",
