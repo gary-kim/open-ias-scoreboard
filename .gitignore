@@ -3,3 +3,5 @@ node_modules/
 css/
 npm_debug.log
 dist/
+oss-attribution/
+npm_debug.log
