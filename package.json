@@ -6,8 +6,8 @@
   "main": "src/index.js",
   "scripts": {
     "prestart": "npx lessc --math=parens-division less/app.less css/app.css",
-    "premake": "yarn licenses --silent generate-disclaimer > oss-attribution/attributions.txt && npx lessc --math=parens-division less/app.less css/app.css",
-    "attributions": "yarn licenses --silent generate-disclaimer > oss-attribution/attributions.txt",
+    "premake": "mkdir -p oss-attribution && yarn licenses --silent generate-disclaimer > oss-attribution/attributions.txt && npx lessc --math=parens-division less/app.less css/app.css",
+    "attributions": "mkdir -p oss-attribution && yarn licenses --silent generate-disclaimer > oss-attribution/attributions.txt",
     "docs": "jsdoc -P ./package.json -r ./js ./src",
     "test": "npx eslint --ext .js . && npx mocha",
     "start": "npx electron .",
