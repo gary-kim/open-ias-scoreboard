@@ -53,7 +53,6 @@
       "!test/**",
       "!less/**"
     ],
-    "buildVersion": "Version 0.2.4 Developer Release 1",
     "publish": null,
     "linux": {
       "category": "utility",

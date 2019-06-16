@@ -17,7 +17,7 @@ matrix:
     - npm test
     - travis_wait npm run ci
     before_deploy:
-    - export RELEASE_DEPLOY=$(ls dist/open* dist/Open*)
+    - export RELEASE_DEPLOY="dist/*coreboard*"
     - git reset --hard
     - git clean -f
   - os: windows
