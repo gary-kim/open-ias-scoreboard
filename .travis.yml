@@ -42,8 +42,8 @@ matrix:
 install:
 - npm ci
 - npm install -g yarn
-after_install:
-- npm run attributions
+- npm install -g json
+- if [[ "$TRAVIS_REPO_SLUG" == "gary-kim/open-ias-scoreboard" ]] && [[ "$TRAVIS_BRANCH" == "master" ]]; then export BUILD_NUMBER=$(bash ./scripts/build_number.sh); json -I -f package.json -e this.versionId=\"$(json -f package.json -o jsony version)-$BUILD_NUMBER\"; fi
 deploy:
   provider: releases
   api_key:

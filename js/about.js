@@ -18,6 +18,8 @@
 const fs = require('fs');
 const path = require('path');
 const { shell } = require('electron');
+const packagejson = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'package.json')));
+const version = `v${packagejson.versionId || packagejson.version}`;
 
 let tmp;
 
@@ -30,6 +32,9 @@ function main() {
             shell.openExternal(`mailto:${e.currentTarget.innerText}`);
         });
     });
+    document.querySelectorAll('.version').forEach((each) => {
+        each.innerText = version;
+    });
     
     fs.readFile(path.join(__dirname, '..', 'oss-attribution/attributions.txt'), (err, data) => {
         document.querySelector('#attributions').innerText = data;
@@ -39,7 +44,7 @@ function main() {
     tmp = document.createElement('div');
     tmp.innerText = `\n` + fs.readFileSync(path.join(__dirname, '..', 'LICENSE'));
     let ttmp = document.createElement('p');
-    ttmp.innerText = `Open IAS Scoreboard    ${JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'package.json'))).version}
+    ttmp.innerText = `Open IAS Scoreboard    ${version}
     Gary Kim <gary@garykim.dev>`;
     tmp0.appendChild(ttmp);
     ttmp = document.createElement('a');
