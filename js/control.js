@@ -86,7 +86,7 @@ function createnewscoreboard(name) {
  */
 function newscoreboardtab(name) {
     let tr = {};
-    //let tmp;
+    let tmp;
 
     // Create new tab
     tr.tab = document.createElement('button');
@@ -152,9 +152,41 @@ function newscoreboardtab(name) {
     tr.controls.querySelector('.logo-select.home button').addEventListener('click', () => {
         setteamlogo(true, name);
     });
+    tmp = tr.controls.querySelector('.logo-select.home .img-container');
+    tmp.ondragover = (e) => {
+        e.preventDefault();
+    };
+    tmp.ondrop = (e) => {
+        e.preventDefault();
+        
+        if (e.dataTransfer.files.length !== 1 || !/^image\/.+/.test(e.dataTransfer.files.item(0).type)) {
+            // TODO: Tell user they have either given too many files or an incorrect file type.
+            return;
+        } 
+        ipc.send('relay', {'relayTo': name.toString(), 'channel': 'set-logo', 'content': {'home': true, 'image_path': e.dataTransfer.files.item(0).path}});
+
+        e.currentTarget.querySelector('img').src = e.dataTransfer.files.item(0).path;
+
+    };
     tr.controls.querySelector('.logo-select.guest button').addEventListener('click', () => {
         setteamlogo(false, name);
     });
+    tmp = tr.controls.querySelector('.logo-select.guest .img-container');
+    tmp.ondragover = (e) => {
+        e.preventDefault();
+    };
+    tmp.ondrop = (e) => {
+        e.preventDefault();
+        
+        if (e.dataTransfer.files.length !== 1 || !/^image\/.+/.test(e.dataTransfer.files.item(0).type)) {
+            // TODO: Tell user they have either given too many files or an incorrect file type.
+            return;
+        } 
+        ipc.send('relay', {'relayTo': name.toString(), 'channel': 'set-logo', 'content': {'home': false, 'image_path': e.dataTransfer.files.item(0).path}});
+
+        e.currentTarget.querySelector('img').src = e.dataTransfer.files.item(0).path;
+
+    };
 
 
     // Set team name controls
