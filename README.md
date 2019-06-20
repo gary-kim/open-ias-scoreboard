@@ -1,5 +1,7 @@
 # Open IAS Scoreboard
 [![Build Status](https://travis-ci.org/gary-kim/open-ias-scoreboard.svg?branch=master)](https://travis-ci.org/gary-kim/open-ias-scoreboard)
+[![License: APGL-3.0](https://img.shields.io/github/license/gary-kim/open-ias-scoreboard.svg)](/LICENSE)
+[![GitHub tag (latest by date)](https://img.shields.io/github/tag-date/gary-kim/open-ias-scoreboard.svg)](https://github.com/gary-kim/open-ias-scoreboard/releases)
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fgary-kim%2Fopen-ias-scoreboard.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fgary-kim%2Fopen-ias-scoreboard?ref=badge_shield)
 
 #### Open IAS Scoreboard is still in development and not ready for production use.
