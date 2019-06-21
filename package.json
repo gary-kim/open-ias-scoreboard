@@ -20,7 +20,7 @@
     "url": "git+https://github.com/gary-kim/open-ias-scoreboard.git"
   },
   "author": "Gary Kim <gary@garykim.dev>",
-  "license": "AGPL-3.0",
+  "license": "AGPL-3.0-only",
   "copyright": "Copyright © 2019 Gary Kim <gary@garykim.dev>",
   "bugs": {
     "url": "https://github.com/gary-kim/open-ias-scoreboard/issues"
