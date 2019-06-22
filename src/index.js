@@ -21,6 +21,8 @@
  */
 
 const electron = require('electron');
+const fs = require('fs');
+const path = require('path');
 
 const { app, BrowserWindow, dialog } = electron;
 const ipc = electron.ipcMain;
@@ -28,7 +30,14 @@ const ipc = electron.ipcMain;
 const ipctasks = require('./ipctasks');
 const menu = require('./menu');
 
-const skipCloseConfirm = process.env.OPENIASSCOREBOARD_TESTING == 'true' || process.env.OPENIASSCOREBOARD_TESTING == '1';
+// Parse/identify current enviorment
+const packagejson = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'package.json')));
+var commander = require('commander');
+commander.version(packagejson.versionId || packagejson.version)
+    .option("-d, --dev-tools", 'Open Dev Tools')
+    .parse(process.argv);
+
+const APPLICATION_TESTING = process.env.OPENIASSCOREBOARD_TESTING == 'true' || process.env.OPENIASSCOREBOARD_TESTING == '1';
 
 let scoreboardWindows = [BrowserWindow];
 let controlWindow = BrowserWindow;
@@ -50,6 +59,10 @@ function createScoreboard() {
     current.loadFile('ui/scoreboard.html');
     menu.forScoreboard(current, number);
 
+    if (commander.devTools) {
+        current.openDevTools();
+    }
+
     current.on('ready-to-show', () => {
         current.webContents.send('title-set', `Scoreboard #${number}`);
         current.show();
@@ -58,7 +71,7 @@ function createScoreboard() {
     controlWindow.webContents.send('create-scoreboard', number);
 
     current.on('close', (e) => {
-        if (skipCloseConfirm) return;
+        if (APPLICATION_TESTING) return;
         e.preventDefault();
         if (dialog.showMessageBox({ type: 'info', buttons: ['Quit', 'Cancel'], title: 'Quit Scoreboard', message: `Close Scoreboard #${number}: ${current.webContents.getTitle()}`, detail: `Are you sure you would like to quit Scoreboard #${number}: ${current.webContents.getTitle()}?`, browserWindow: current }) === 0) {
             controlWindow.webContents.send('destory-scoreboard', number);
@@ -79,8 +92,12 @@ function createControl() {
 
     controlWindow.loadFile('ui/control.html');
 
+    if (commander.devTools) {
+        controlWindow.openDevTools();
+    }
+
     controlWindow.on('close', (e) => {
-        if (skipCloseConfirm) return;
+        if (APPLICATION_TESTING) return;
         e.preventDefault();
         if (dialog.showMessageBox({ type: 'info', buttons: ['Quit', 'Cancel'], title: 'Quit Scoreboard', message: "Close all scoreboards from Scoreboard", detail: `Are you sure you would like to quit Scoreboard? (WARNING: This will close all open scoreboards.)`, browserWindow: controlWindow }) === 0) {
             scoreboardWindows.forEach((each) => {
