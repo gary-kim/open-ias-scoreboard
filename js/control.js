@@ -145,6 +145,11 @@ function newscoreboardtab(name) {
         clockset(name, gir(data[name].clock.current - 1000, 0, 5999000));
     });
 
+    // Scoreboard scaling controls
+    tr.controls.querySelector('#scoreboard-scaling').addEventListener('change', (e) => {
+        ipcToScoreboard(name, 'scale', e.currentTarget.value);
+    });
+
     // Set team logo controls
     data[name].home.logo = tr.controls.querySelector('.logo-select.home img');
     data[name].guest.logo = tr.controls.querySelector('.logo-select.guest img');
@@ -163,7 +168,7 @@ function newscoreboardtab(name) {
             // TODO: Tell user they have either given too many files or an incorrect file type.
             return;
         } 
-        ipc.send('relay', {'relayTo': name.toString(), 'channel': 'set-logo', 'content': {'home': true, 'image_path': e.dataTransfer.files.item(0).path}});
+        ipcToScoreboard(name, 'set-logo', {'home': true, 'image_path': e.dataTransfer.files.item(0).path});
 
         e.currentTarget.querySelector('img').src = e.dataTransfer.files.item(0).path;
 
@@ -182,7 +187,7 @@ function newscoreboardtab(name) {
             // TODO: Tell user they have either given too many files or an incorrect file type.
             return;
         } 
-        ipc.send('relay', {'relayTo': name.toString(), 'channel': 'set-logo', 'content': {'home': false, 'image_path': e.dataTransfer.files.item(0).path}});
+        ipcToScoreboard(name, 'set-logo', {'home': false, 'image_path': e.dataTransfer.files.item(0).path});
 
         e.currentTarget.querySelector('img').src = e.dataTransfer.files.item(0).path;
 
@@ -231,7 +236,7 @@ function clockset(name, miliseconds, delta) {
         data[name].clock.current = miliseconds;
     }
     data[name].clock.display.innerText = `${Math.floor(data[name].clock.current / 1000 / 60).toString().padStart(2, '0')}:${Math.floor(data[name].clock.current / 1000 % 60).toString().padStart(2, '0')}`;
-    ipc.send('relay', { relayTo: name.toString(), channel: 'update-clock', content: (data[name].clock.current / 1000) });
+    ipcToScoreboard(name, 'update-clock', data[name].clock.current / 1000);
 }
 
 /**
@@ -257,7 +262,7 @@ function changeScore(name, home, changeBy) {
     let setOn = data[name][home ? 'home' : 'guest'];
     setOn.current = gir(setOn.current + changeBy, 0, 99);
     setOn.scoreDisplay.innerText = setOn.current.toString().padStart(2, '0');
-    ipc.send('relay', { relayTo: name, channel: 'set-score', content: { score: setOn.current, home: home } });
+    ipcToScoreboard(name, 'set-score', { score: setOn.current, home: home });
 }
 
 /**
@@ -268,7 +273,7 @@ function changeScore(name, home, changeBy) {
  * @param {string} changeTo The text to change the name to.
  */
 function changeName(sbid, home, changeTo) {
-    ipc.send('relay', { relayTo: sbid, channel: 'set-name', content: { home: home, changeTo: changeTo }});
+    ipcToScoreboard(sbid, 'set-name', { home: home, changeTo: changeTo });
 }
 
 /**
@@ -320,6 +325,17 @@ function setteamlogo(home, sbid) {
 }
 
 /**
+ * Send a message to a scoreboard.
+ * 
+ * @param {number} name Scoreboard id for the scoreboard to send to.
+ * @param {string} channel Channel to be sent to scoreboard on. 
+ * @param {*} msg Message to send to scoreboard.
+ */
+function ipcToScoreboard(name, channel, msg) {
+    ipc.send('relay', {relayTo: name, channel: channel, content: msg});
+}
+
+/**
  * Function to run tasks that require constant repeating.
  */
 function cron() {
@@ -331,7 +347,7 @@ function cron() {
             let change = (each.clock.countdown)? (each.clock.last - current) : -(each.clock.last - current);
             each.clock.current = gir(each.clock.current + change, 0, 5999000);
             each.clock.last = current;
-            ipc.send('relay', { relayTo: i.toString(), channel: 'update-clock', content: (each.clock.current / 1000) });
+            ipcToScoreboard(i, 'update-clock', each.clock.current / 1000);
             data[i].clock.display.innerText = `${Math.floor(each.clock.current / 1000 / 60).toString().padStart(2, '0')}:${Math.floor(each.clock.current / 1000 % 60).toString().padStart(2, '0')}`;
         }
     }

@@ -149,3 +149,6 @@ ipc.on('set-logo', (e, msg) => {
 ipc.on('set-name', (e, msg) => {
     teams.name[msg.home ? 'home' : 'guest'].innerText = msg.changeTo;
 });
+ipc.on('scale', (e, msg) => {
+    document.body.style.zoom = msg;
+});

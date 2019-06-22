@@ -19,7 +19,21 @@
             <template id="newcontrols">
                 <div class="controls" scoreboard-id="1">
                     <div id="board-controls">
-                        <label>Scoreboard Visible: <input type="checkbox" name="Visible" id="visibility" checked></label>
+                        <div>
+                            <label>Scoreboard Visible: <input type="checkbox" name="Visible" id="visibility" checked></label>
+                            <label>Scale: 
+                                <select name="scoreboard-scaling" id="scoreboard-scaling">
+                                    <option value="0.25">25%</option>
+                                    <option value="0.5">50%</option>
+                                    <option value="0.75">75%</option>
+                                    <option value="1" selected>100%</option>
+                                    <option value="1.25">125%</option>
+                                    <option value="1.5">150%</option>
+                                    <option value="1.75">175%</option>
+                                    <option value="2">200%</option>
+                                </select>
+                            </label>
+                        </div>
                         <div>
                             <input type="text" name="Scoreboard Name" id="rename-tab" placeholder="Team A vs Team B" >
                             <button id="focus-window">Focus Scoreboard</button>
