@@ -27,6 +27,7 @@
   },
   "homepage": "https://openias.garykim.dev/",
   "dependencies": {
+    "commander": "^2.20.0",
     "electron-squirrel-startup": "^1.0.0",
     "get-in-range": "^0.2.4",
     "mousetrap": "^1.6.3"
