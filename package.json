@@ -29,7 +29,8 @@
   "dependencies": {
     "commander": "^2.20.0",
     "get-in-range": "^0.2.4",
-    "mousetrap": "^1.6.3"
+    "mousetrap": "^1.6.3",
+    "vue": "^2.6.10"
   },
   "devDependencies": {
     "acorn": "^6.1.1",
