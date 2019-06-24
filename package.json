@@ -97,47 +97,5 @@
         }
       ]
     }
-  },
-  "config": {
-    "forge": {
-      "make_targets": {
-        "win32": [
-          "squirrel"
-        ],
-        "darwin": [
-          "dmg"
-        ],
-        "linux": [
-          "deb",
-          "rpm"
-        ]
-      },
-      "electronPackagerConfig": {
-        "packageManager": "npm",
-        "appCopyright": "©2019 Gary Kim <gary@garykim.dev>"
-      },
-      "electronWinstallerConfig": {
-        "name": "open-ias-scoreboard",
-        "authors": "Gary Kim",
-        "title": "Open IAS Scoreboard"
-      },
-      "electronInstallerDebian": {
-        "name": "open-ias-scoreboard",
-        "maintainer": "Gary Kim",
-        "productName": "Open IAS Scoreboard",
-        "productDescription": "Scoreboard is an Electron application to use for putting scoreboards on IASAS event livestreams."
-      },
-      "electronInstallerRedhat": {
-        "authors": "Gary Kim"
-      },
-      "github_repository": {
-        "owner": "Gary Kim",
-        "name": "open-ias-scoreboard"
-      },
-      "windowsStoreConfig": {
-        "packageName": "",
-        "name": "openiasscoreboard"
-      }
-    }
   }
 }
