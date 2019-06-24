@@ -28,7 +28,6 @@
   "homepage": "https://openias.garykim.dev/",
   "dependencies": {
     "commander": "^2.20.0",
-    "electron-squirrel-startup": "^1.0.0",
     "get-in-range": "^0.2.4",
     "mousetrap": "^1.6.3"
   },
@@ -39,7 +38,6 @@
     "babel-preset-react": "^6.24.1",
     "electron": "^4.2.4",
     "electron-builder": "^20.43.0",
-    "electron-builder-squirrel-windows": "^20.44.0",
     "eslint": "^5.16.0",
     "eslint-plugin-jsdoc": "^4.8.4",
     "eslint-plugin-mocha": "^5.3.0",
