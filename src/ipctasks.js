@@ -39,9 +39,10 @@ function init(controlWindow, scoreboardWindows)    {
         e.sender.webContents.send('set-logo', {home: msg.home, image_path: filepaths[0], scoreboard: msg.scoreboard});
     });
     
-    ipc.on('relay', (e, msg) => {
-        console.log(`Relaying ${JSON.stringify(msg.content)} to ${msg.relayTo} on channel ${msg.channel}`);
-        scoreboardWindows[parseInt(msg.relayTo)].webContents.send(msg.channel,msg.content);
+    ipc.on('relay', (e, target, channel, msg) => {
+        // eslint-disable-next-line no-console
+        console.log(`Relaying ${JSON.stringify(msg)} to ${target} on channel ${channel}`);
+        scoreboardWindows[parseInt(target)].webContents.send(channel,msg);
     });
 
     ipc.on('open-about-program', openAboutProgram);

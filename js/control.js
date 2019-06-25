@@ -115,7 +115,7 @@ function newscoreboardtab(name) {
     rename_tab.addEventListener('input', (e) => {
         let newtitle = e.currentTarget.value;
         data[name].tab.innerText = newtitle;
-        ipc.send('relay', { relayTo: name, channel: 'title-set', content: newtitle });
+        ipcToScoreboard(name, 'title-set', newtitle);
     });
 
     // clock controls
@@ -332,7 +332,7 @@ function setteamlogo(home, sbid) {
  * @param {*} msg Message to send to scoreboard.
  */
 function ipcToScoreboard(name, channel, msg) {
-    ipc.send('relay', {relayTo: name, channel: channel, content: msg});
+    ipc.send('relay', name, channel, msg);
 }
 
 /**
