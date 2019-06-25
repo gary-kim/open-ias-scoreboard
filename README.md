@@ -1,3 +1,5 @@
+<img src="https://electronjs.org/app-img/open-ias-scoreboard/open-ias-scoreboard-icon-128.png">
+
 # Open IAS Scoreboard
 [![Build Status](https://travis-ci.org/gary-kim/open-ias-scoreboard.svg?branch=master)](https://travis-ci.org/gary-kim/open-ias-scoreboard)
 [![License: APGL-3.0](https://img.shields.io/github/license/gary-kim/open-ias-scoreboard.svg)](/LICENSE)
