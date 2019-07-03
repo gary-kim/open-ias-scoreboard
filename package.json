@@ -13,6 +13,8 @@
     "test": "npx eslint --ext .js . && npx mocha",
     "start": "npx electron .",
     "make": "npx electron-builder build --publish never",
+    "webpack:build": "npx webpack --progress --config src/ui/webpack.prod.js",
+    "webpack:dev": "npx webpack --progress --config src/ui/webpack.dev.js --watch",
     "ci": "mkdir -p oss-attribution && yarn licenses --silent generate-disclaimer > oss-attribution/attributions.txt && npx lessc --math=parens-division less/app.less css/app.css && npx electron-builder build --publish never"
   },
   "repository": {
