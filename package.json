@@ -44,7 +44,12 @@
     "eslint-plugin-mocha": "^5.3.0",
     "less": "^3.9.0",
     "mocha": "^6.1.4",
-    "spectron": "^5.0.0"
+    "spectron": "^5.0.0",
+    "vue-loader": "^15.7.0",
+    "vue-template-compiler": "^2.6.10",
+    "webpack": "^4.35.2",
+    "webpack-cli": "^3.3.5",
+    "webpack-merge": "^4.2.1"
   },
   "build": {
     "appId": "dev.garykim.openias.scoreboard",
