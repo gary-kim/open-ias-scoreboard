@@ -1,0 +1,37 @@
+baseURL = "https://openias.garykim.dev/"
+languageCode = "en-us"
+title = "Open IAS Scoreboard Documentation"
+theme = "hugo-theme-techdoc"
+
+defaultContentLanguage = "en"
+pygmentsCodeFences = true
+enableGitInfo = true
+
+[Params]
+    github_repository = "https://github.com/gary-kim/open-ias-scoreboard"
+
+    github_doc_repository = "https://github.com/gary-kim/open-ias-scoreboard"
+
+    custom_css = ["css/app.css"]
+
+[[menu.main]]
+    name = "Home"
+    url = "/"
+    weight = 1
+
+[[menu.main]]
+    name = "Users"
+    url = "/users"
+    weight = 2
+[[menu.main]]
+    name = "Developers"
+    url = "/dev"
+    weight = 3
+[[menu.main]]
+    name = "About"
+    url = "/about"
+    weight = 4
+[[menu.main]]
+    name = "Source Code"
+    url = "https://github.com/gary-kim/open-ias-scoreboard"
+    weight = 5

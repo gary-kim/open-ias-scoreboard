@@ -51,7 +51,8 @@
     "copyright": "Copyright © 2019 Gary Kim <gary@garykim.dev>",
     "files": [
       "!test/**",
-      "!less/**"
+      "!less/**",
+      "!docs/**"
     ],
     "publish": null,
     "linux": {
