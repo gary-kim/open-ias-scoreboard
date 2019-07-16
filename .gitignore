@@ -1,6 +1,6 @@
 out/
 node_modules/
-css/
+/css/
 npm_debug.log
 dist/
 oss-attribution/
