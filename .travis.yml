@@ -11,7 +11,7 @@ matrix:
     script:
       - cd docs
       - make prod
-      - if [[ "$TRAVIS_REPO_SLUG" == "gary-kim/open-ias-scoreboard" ]] && [[ "$TRAVIS_BRANCH" == "master" ]]; then make deploy; fi
+      - if [[ "$TRAVIS_REPO_SLUG" == "gary-kim/open-ias-scoreboard" ]] && [[ "$TRAVIS_BRANCH" == "master" ]] && [[ "$TRAVIS_PULL_REQUEST" == false ]]; then make deploy; fi
   - dist: xenial
     services:
     - xvfb
