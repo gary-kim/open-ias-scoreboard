@@ -5,6 +5,14 @@ sudo: required
 matrix:
   include:
   - dist: xenial
+    name: Documentation
+    install:
+      - bash scripts/documentation_dependencies.sh
+    script:
+      - cd docs
+      - make prod
+      - if [[ "$TRAVIS_REPO_SLUG" == "gary-kim/open-ias-scoreboard" ]] && [[ "$TRAVIS_BRANCH" == "master" ]]; then make deploy; fi
+  - dist: xenial
     services:
     - xvfb
     addons:
@@ -57,4 +65,4 @@ deploy:
     tags: true
     branch: master
     repo: gary-kim/open-ias-scoreboard
-    condition: $TRAVIS_PULL_REQUEST == false
+    condition: $TRAVIS_PULL_REQUEST == false && [[ -z "$RELEASE_DEPLOY" ]]
