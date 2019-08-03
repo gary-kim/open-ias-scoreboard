@@ -1,7 +1,7 @@
 ---
 title: "Unit Tests & ESLint"
 date: 2019-04-23T22:41:00+08:00
-weight: 3
+weight: 4
 ---
 
 ## `npm test`: Check Your Code
