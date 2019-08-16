@@ -1,0 +1,54 @@
+kind: pipeline
+name: install and test
+
+steps:
+  - name: install
+    image: node
+    commands:
+      - npm ci
+    volumes:
+      - name: npm
+        path: /root/.npm
+      - name: cache
+        path: /root/.cache
+  - name: build-less-and-attributions
+    image: node
+    commands:
+      - npm install -g yarn
+      - npm run premake
+      - npm run attributions
+    volumes:
+      - name: npm
+        path: /root/.npm
+      - name: cache
+        path: /root/.cache
+  - name: run-tests
+    image: node:buster
+    commands:
+      - apt-get update > /dev/null && apt-get install -y xvfb libxtst6 libxss1 libgtk2.0-0 libgtk-3-bin libnss3 libasound2 libgconf-2-4 > /dev/null
+      - export DISPLAY=:99.0
+      - Xvfb :99.0 -screen 0 1024x768x24 &
+      - sleep 10
+      - npm test
+    volumes:
+      - name: npm
+        path: /root/.npm
+      - name: cache
+        path: /root/.cache
+  - name: build
+    image: node:buster
+    commands:
+      - apt-get update > /dev/null && apt-get install -y rpm fakeroot dpkg > /dev/null
+      - npm run make
+    volumes:
+      - name: npm
+        path: /root/.npm
+      - name: cache
+        path: /root/.cache
+
+volumes:
+  - name: npm
+    temp: {}
+  - name: cache
+    temp: {}
+

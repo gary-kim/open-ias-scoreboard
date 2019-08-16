@@ -5,7 +5,7 @@ const path = require('path');
 const electron = require('electron');
 
 describe('Open IAS Scoreboard Tests', function () {
-    this.timeout(10000);
+    this.timeout(20000);
 
     before(function () {
         this.app = new Application({
