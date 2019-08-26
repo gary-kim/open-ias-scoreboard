@@ -65,4 +65,4 @@ deploy:
     tags: true
     branch: master
     repo: gary-kim/open-ias-scoreboard
-    condition: $TRAVIS_PULL_REQUEST == false && [[ -z "$RELEASE_DEPLOY" ]]
+    condition: $TRAVIS_PULL_REQUEST == false && ( -n "$RELEASE_DEPLOY" )
